@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>东方棋局 1949–2001 · The Eastern Gambit</title>
+  <meta name="description" content="单人历史卡牌策略游戏：扮演新中国，从1949年走到2001年入世，在冷战棋盘上落子。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div id="app" class="vignette">
+
+    <!-- 标题屏 -->
+    <section id="scr-title" class="screen">
+      <div id="title-bg"></div>
+      <div class="title-rays"></div>
+      <div id="title-main">
+        <div class="kicker">一九四九 —— 二〇〇一 · 单人历史卡牌棋局</div>
+        <h1>东方棋局</h1>
+        <div class="years">THE EASTERN GAMBIT</div>
+        <div class="tagline">五十二年风云 · 九方博弈 · 七种结局 —— 这一次，由你落子</div>
+        <div class="title-buttons">
+          <button id="btn-new" class="btn">新 开 棋 局</button>
+          <button id="btn-continue" class="btn gold">继 续 前 局</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 幕间屏 -->
+    <section id="scr-act" class="screen">
+      <div id="act-poster"></div>
+      <div id="act-content">
+        <div id="act-num"></div>
+        <div id="act-title"></div>
+        <div id="act-years"></div>
+        <div id="act-intro"></div>
+        <div id="tz-area"></div>
+      </div>
+    </section>
+
+    <!-- 主板面 -->
+    <section id="scr-board" class="screen">
+      <header id="board-header">
+        <span class="logo">东方棋局</span>
+        <span id="turn-label"></span>
+        <div id="plays-stars"></div>
+        <span id="ap-chip"></span>
+        <button id="btn-ap" class="btn ghost">国策行动</button>
+        <button id="btn-end-turn" class="btn">结束回合</button>
+      </header>
+      <div id="board-main">
+        <aside id="rel-panel"></aside>
+        <div id="stage">
+          <div id="event-log"></div>
+        </div>
+        <aside id="res-panel"></aside>
+      </div>
+      <div id="hand-zone"></div>
+    </section>
+
+    <!-- 幕末屏 -->
+    <section id="scr-finale" class="screen">
+      <div id="finale-bg"></div>
+      <div class="letterbox top"></div>
+      <div class="letterbox bottom"></div>
+      <div id="finale-content">
+        <div class="f-kicker"></div>
+        <h2></h2>
+        <div id="finale-desc"></div>
+        <div id="finale-choices"></div>
+      </div>
+    </section>
+
+    <!-- 结局屏 -->
+    <section id="scr-ending" class="screen">
+      <div id="ending-img"></div>
+      <div id="ending-body">
+        <div id="ending-kind"></div>
+        <div id="ending-title"></div>
+        <div id="ending-poem"></div>
+        <div id="ending-text"></div>
+        <div id="ending-addenda"></div>
+        <div id="ending-stats"></div>
+        <div id="ending-score"></div>
+        <div class="title-buttons">
+          <button id="btn-restart-ending" class="btn">再 开 一 局</button>
+          <button id="btn-menu-ending" class="btn ghost">回 到 标 题</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="curtain"><div class="half left"></div><div class="half right"></div></div>
+    <div id="grain"></div>
+    <div id="alert-flash"></div>
+    <div id="toast"></div>
+    <div id="modal-root"></div>
+    <div id="fx-root"></div>
+    <button id="mute-btn" title="音效开关">♪</button>
+  </div>
+
+  <script src="js/data/act1.js"></script>
+  <script src="js/data/act2.js"></script>
+  <script src="js/data/act3.js"></script>
+  <script src="js/data/act4.js"></script>
+  <script src="js/data/act5.js"></script>
+  <script src="js/data/endings.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
