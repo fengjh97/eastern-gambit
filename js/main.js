@@ -6,6 +6,10 @@ window.addEventListener('DOMContentLoaded', () => {
     Engine.newGame();
     while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
     UI._debugEnterBoard();
+    setTimeout(() => {
+      const w = id => { const e = document.querySelector(id); return e ? Math.round(e.getBoundingClientRect().width) : -1; };
+      document.title = JSON.stringify({ vw: window.innerWidth, board: w('#scr-board'), main: w('#board-main'), res: w('#res-panel'), rel: w('#rel-panel'), stage: w('#stage'), log: w('#event-log'), hand: w('#hand-zone'), hdr: w('#board-header') });
+    }, 1500);
     if (h === '#autoplay') {
       // 自动演示：点开第一张手牌 → 打出事件/首个选项
       setTimeout(() => { const c = document.querySelector('#hand-zone .card'); c && c.click(); }, 900);

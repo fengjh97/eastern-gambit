@@ -49,6 +49,7 @@
   // ---------- 标题屏 ----------
   function renderTitle() {
     show('#scr-title');
+    Music.playTitle();
     bgOrGradient($('#title-bg'), 'title');
     const h1 = $('#title-main h1');
     h1.innerHTML = '东方棋局'.split('').map((ch, i) => `<span style="animation-delay:${.35 + i * .16}s">${ch}</span>`).join('');
@@ -60,6 +61,7 @@
   function renderActIntro() {
     const meta = window.ACT_DATA[Engine.state.act].meta;
     show('#scr-act');
+    Music.playAct(meta.act);
     bgOrGradient($('#act-poster'), meta.img);
     $('#act-num').textContent = '第 ' + '一二三四五'[meta.act - 1] + ' 幕';
     $('#act-title').textContent = meta.title;
@@ -186,17 +188,23 @@
     const st = Engine.state;
     const zone = $('#hand-zone'); zone.innerHTML = '';
     const n = st.hand.length;
+    const flat = window.matchMedia('(max-width: 900px)').matches;
+    zone.classList.toggle('flat', flat);
     st.hand.forEach((id, i) => {
       const c = Engine.cardById(id);
       const node = cardNode(c);
-      const spread = Math.min(58, 640 / Math.max(n, 1));
-      const off = (i - (n - 1) / 2);
-      node.style.left = 'calc(50% - 75px + ' + (off * spread * 2) + 'px)';
-      node.style.transform = 'rotate(' + off * 3.2 + 'deg) translateY(' + Math.abs(off) * 7 + 'px)';
-      node.style.zIndex = i;
+      if (flat) {
+        node.classList.add('flat');
+      } else {
+        const spread = Math.min(58, 640 / Math.max(n, 1));
+        const off = (i - (n - 1) / 2);
+        node.style.left = 'calc(50% - 75px + ' + (off * spread * 2) + 'px)';
+        node.style.transform = 'rotate(' + off * 3.2 + 'deg) translateY(' + Math.abs(off) * 7 + 'px)';
+        node.style.zIndex = i;
+        node.onmouseenter = () => { node.style.transform = 'rotate(0deg) translateY(-36px) scale(1.18)'; };
+        node.onmouseleave = () => { node.style.transform = 'rotate(' + off * 3.2 + 'deg) translateY(' + Math.abs(off) * 7 + 'px)'; };
+      }
       if (withDraw) { node.classList.add('drawn'); node.style.animationDelay = (i * .09) + 's'; Audio2.play('flip'); }
-      node.onmouseenter = () => { node.style.transform = 'rotate(0deg) translateY(-36px) scale(1.18)'; };
-      node.onmouseleave = () => { node.style.transform = 'rotate(' + off * 3.2 + 'deg) translateY(' + Math.abs(off) * 7 + 'px)'; };
       node.onclick = () => openCardModal(c);
       zone.append(node);
     });
@@ -510,6 +518,7 @@
     const st = Engine.state;
     const e = st.gameOver || st._finalEnding || Engine.finalEnding();
     show('#scr-ending');
+    Music.playTitle();
     bgOrGradient($('#ending-img'), e.img);
     $('#ending-kind').textContent = e.kind === 'collapse' ? '中 途 崩 局' : '终 局';
     $('#ending-title').textContent = e.title;
@@ -548,7 +557,9 @@
     $('#btn-ap').onclick = openApPanel;
     $('#btn-restart-ending').onclick = () => curtain(() => { Engine.newGame(); renderActIntro(); });
     $('#btn-menu-ending').onclick = () => curtain(renderTitle);
-    $('#mute-btn').onclick = () => { const on = Audio2.toggle(); $('#mute-btn').textContent = on ? '♪' : '✕'; };
+    $('#mute-btn').onclick = () => { const on = Audio2.toggle(); Music.setEnabled(on); $('#mute-btn').textContent = on ? '♪' : '✕'; };
+    // iOS/浏览器自动播放限制：首次触摸后启动音乐
+    document.addEventListener('pointerdown', () => { Music.setEnabled(Music.enabled); }, { once: true });
   }
 
   window.UI = { renderTitle, bind, _debugEnterBoard: enterBoard, _debugFinale: renderFinale, _debugEnding: renderEnding };

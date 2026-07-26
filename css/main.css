@@ -489,20 +489,68 @@ body {
 }
 
 /* 响应式 */
+/* 平铺手牌（窄屏横向滑动） */
+#hand-zone.flat {
+  display: flex; justify-content: flex-start; align-items: center; gap: 12px;
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
+  padding: 8px 14px calc(10px + env(safe-area-inset-bottom));
+  scroll-snap-type: x proximity;
+}
+#hand-zone.flat::after { content: ''; flex: none; width: 4px; }
+.card.flat {
+  position: static; flex: none; transform: none !important; transform-origin: center;
+  scroll-snap-align: center; bottom: auto;
+}
+.card.flat:active { transform: scale(.96) !important; }
+
 @media (max-width: 900px) {
-  #board-main { grid-template-columns: 1fr; overflow-y: auto; }
-  #res-panel { flex-direction: row; flex-wrap: wrap; }
-  #res-panel .res-box { min-width: 140px; }
-  #hand-zone { height: 200px; }
-  .card { width: 120px; height: 172px; }
-  .letterbox { height: 40px; }
-  #board-header { flex-wrap: wrap; padding: 8px 10px; gap: 8px 12px; }
-  #board-header .logo { font-size: 18px; }
-  #turn-label { font-size: 12px; order: 6; width: 100%; }
-  #board-header .btn { padding: 8px 14px; font-size: 13px; letter-spacing: .15em; }
+  button, .card { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  #board-main { grid-template-columns: 1fr; overflow-y: auto; gap: 10px; padding: 10px 12px 4px; }
+  /* 国力放最上面两排四宫格 */
+  #res-panel { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #res-panel .panel-title { display: none; }
+  .res-box { padding: 8px 10px; min-width: 0; }
+  .res-top { margin-bottom: 5px; }
+  .res-name { font-size: 12px; letter-spacing: .1em; white-space: nowrap; }
+  .res-num { font-size: 22px; }
+  /* 邦交双列紧凑 */
+  #rel-panel { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 6px 8px; overflow: visible; }
+  #rel-panel .panel-title { grid-column: 1 / -1; }
+  .rel-row { grid-template-columns: 46px minmax(0,1fr) 24px; padding: 5px 8px; margin-bottom: 0; min-width: 0; }
+  .rel-name { font-size: 12px; letter-spacing: 0; overflow: hidden; }
+  .rel-val { font-size: 14px; }
+  #event-log { min-height: 130px; font-size: 13px; }
+  #hand-zone { height: 216px; }
+  .card { width: 132px; height: 190px; }
+  .letterbox { height: 34px; }
+  #board-header { flex-wrap: wrap; padding: calc(6px + env(safe-area-inset-top)) 12px 6px; gap: 6px 10px; }
+  #board-header .logo { font-size: 17px; }
+  #turn-label { font-size: 11px; order: 6; width: 100%; letter-spacing: .08em; }
+  #board-header .btn { padding: 9px 14px; font-size: 13px; letter-spacing: .12em; }
   #ap-chip { font-size: 13px; padding: 3px 9px; }
-  .rel-row { padding: 4px 9px; margin-bottom: 4px; }
-  .dossier { padding: 18px 16px; }
+  #plays-stars { margin-left: auto; }
+  .play-star { width: 18px; height: 18px; }
+  /* 弹层接近全屏，选项按钮加大 */
+  .overlay { padding: 10px; align-items: flex-end; }
+  .dossier { width: 100%; max-height: 88vh; padding: 18px 16px calc(16px + env(safe-area-inset-bottom)); }
   .dossier h2 { font-size: 26px; }
   .dossier .d-img { height: 130px; }
+  .dossier .d-actions .btn { flex: 1; padding: 13px 10px; font-size: 15px; letter-spacing: .15em; text-indent: .15em; }
+  .choice-btn { padding: 14px 14px; }
+  .choice-btn .ch-label { font-size: 16px; }
+  .ap-grid { grid-template-columns: 1fr 1fr; }
+  .ap-item { padding: 13px 12px; }
+  .country-grid { grid-template-columns: repeat(3, 1fr); }
+  /* 标题/结局屏留出安全区 */
+  #title-main { padding: 0 18px; width: 100%; }
+  #title-main .kicker { letter-spacing: .3em; text-indent: .3em; font-size: 12px; }
+  #title-main .years { font-size: 17px; letter-spacing: .28em; text-indent: .28em; }
+  #title-main .tagline { font-size: 13px; letter-spacing: .1em; }
+  #title-main h1 { font-size: clamp(52px, 15vw, 90px); }
+  .title-buttons { flex-direction: column; gap: 14px; align-items: stretch; padding: 0 10px; }
+  #finale-content { padding: 60px 18px; }
+  #finale-content h2 { font-size: 38px; }
+  #ending-title { font-size: clamp(46px, 13vw, 72px); }
+  #ending-body { padding: 0 18px calc(40px + env(safe-area-inset-bottom)); }
+  #mute-btn { right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); }
 }
