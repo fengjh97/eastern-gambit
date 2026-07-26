@@ -39,7 +39,11 @@ window.ACT_DATA[3] = {
   cards: [
     { id: 'a3_01', name: '文化大革命全面发动', year: 1966, type: 'event', ap: 3, tag: 'home', img: 'crisis', once: true,
       flavor: '五一六通知下达，一张大字报贴上高墙，八次接见红卫兵的声浪席卷全国。',
-      event: { desc: '"天下大乱"开始了。稳定-6，经济-3，国际地位-2。', fx: { res: { STB: -6, ECO: -3, DIP: -2 } } } },
+      event: { desc: '"天下大乱"开始了。狂潮无可阻挡，但驾驭方式仍在你手中。',
+        choices: [
+          { label: '因势利导', desc: '把运动的狂热导入路线与权威的巩固——意识形态空前统一，秩序与生产为之让路。', fx: { res: { STB: 2, ECO: -4, DIP: -3 } } },
+          { label: '勉力约束', desc: '抓革命、促生产，军队和老干部尽力兜住基本盘，两头都不讨好。', fx: { res: { STB: -4, ECO: -1 } } },
+        ] } },
 
     { id: 'a3_02', name: '红卫兵与破四旧', year: 1966, type: 'event', ap: 2, tag: 'home', img: 'home', once: true,
       flavor: '大串联的列车挤满全国，抄家的火光里，文物与人一同蒙难。',
@@ -161,7 +165,11 @@ window.ACT_DATA[3] = {
 
     { id: 'a3_20', name: '批林批孔', year: 1974, type: 'event', ap: 1, tag: 'home', img: 'home', once: true,
       flavor: '运动的矛头指向两千年前的古人，也指向近在咫尺的今人。',
-      event: { desc: '政治运动再起，刚复苏的秩序又被搅动。稳定-3，经济-1。', fx: { res: { STB: -3, ECO: -1 } } } },
+      event: { desc: '运动再起，是顺势推动还是低调冷置？',
+        choices: [
+          { label: '顺势推动', desc: '再度统一思想口径，路线权威得到重申，生产秩序再受搅动。', fx: { res: { STB: 2, ECO: -3 } } },
+          { label: '低调冷置', desc: '文件照转、大会少开，把精力留给国民经济。', fx: { res: { STB: -1, ECO: 1 } } },
+        ] } },
 
     { id: 'a3_21', name: '四届人大与四个现代化', year: 1975, type: 'boon', ap: 2, tag: 'home', img: 'boon', once: true,
       flavor: '重病中的总理重申四个现代化宏图，掌声经久不息。',
@@ -179,7 +187,7 @@ window.ACT_DATA[3] = {
       flavor: '十里长街送总理。清明时节，悼念的花圈与诗抄铺满广场。',
       event: { desc: '悼念的人潮聚在天安门，矛头暗指当权者。如何应对？',
         choices: [
-          { label: '定性反革命事件', desc: '清场抓捕，压下去的是人潮，压不住的是人心。', fx: { res: { STB: -4 } } },
+          { label: '定性反革命事件', desc: '连夜清场，秩序当即恢复——广场安静了，人心的账留到日后再算。', fx: { res: { STB: 2, DIP: -2 } } },
           { label: '克制处理', desc: '不定性、不扩大，让悼念自然落幕。', roll: { ge: 3,
             ok: { desc: '人潮自然散去，民心未再受创。', fx: { res: { STB: -1 } } },
             bad: { desc: '强行清场仍难避免，怨愤郁积于野。', fx: { res: { STB: -3 } } } } },

@@ -491,8 +491,18 @@ body {
 /* 响应式 */
 @media (max-width: 900px) {
   #board-main { grid-template-columns: 1fr; overflow-y: auto; }
-  #res-panel { flex-direction: row; }
+  #res-panel { flex-direction: row; flex-wrap: wrap; }
+  #res-panel .res-box { min-width: 140px; }
   #hand-zone { height: 200px; }
   .card { width: 120px; height: 172px; }
   .letterbox { height: 40px; }
+  #board-header { flex-wrap: wrap; padding: 8px 10px; gap: 8px 12px; }
+  #board-header .logo { font-size: 18px; }
+  #turn-label { font-size: 12px; order: 6; width: 100%; }
+  #board-header .btn { padding: 8px 14px; font-size: 13px; letter-spacing: .15em; }
+  #ap-chip { font-size: 13px; padding: 3px 9px; }
+  .rel-row { padding: 4px 9px; margin-bottom: 4px; }
+  .dossier { padding: 18px 16px; }
+  .dossier h2 { font-size: 26px; }
+  .dossier .d-img { height: 130px; }
 }
