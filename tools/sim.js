@@ -2,7 +2,7 @@
 // 策略: random | greedy(缺啥补啥+优先打事件)
 global.window = {};
 global.localStorage = { getItem: () => null, setItem: () => { }, removeItem: () => { } };
-['act1', 'act2', 'act3', 'act4', 'act5', 'endings'].forEach(f => require('../js/data/' + f + '.js'));
+['act1','act2','act3','act4','act5','endings','reactions'].forEach(f => require('../js/data/' + f + '.js'));
 require('../js/engine.js');
 const E = global.window.Engine;
 const ENDINGS = global.window.ENDINGS;

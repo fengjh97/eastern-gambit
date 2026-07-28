@@ -20,6 +20,25 @@
     Audio2.play('curtain');
     setTimeout(() => { fn(); setTimeout(() => c.classList.remove('closed'), 120); }, 620);
   }
+  // 纪录片字幕卡转场
+  const ACT_SLOGANS = {
+    1: '中国人民从此站起来了', 2: '鼓足干劲 力争上游', 3: '备战备荒为人民',
+    4: '实践是检验真理的唯一标准', 5: '发展才是硬道理',
+  };
+  const ACT_FILMTEXT = {
+    1: '百 废 待 兴', 2: '风 雨 如 磐', 3: '严 冬 与 破 冰', 4: '春 潮 涌 动', 5: '走 向 世 界',
+  };
+  function filmCard(act, fn) {
+    const fc = $('#filmcard');
+    const meta = window.ACT_DATA[act] && window.ACT_DATA[act].meta;
+    fc.querySelector('.fc-year').textContent = meta ? meta.years.replace('–', ' — ') : '';
+    fc.querySelector('.fc-text').textContent = ACT_FILMTEXT[act] || '';
+    fc.classList.add('on');
+    Audio2.play('curtain');
+    setTimeout(() => { fn(); }, 900);
+    setTimeout(() => { fc.classList.remove('on'); }, 2100);
+  }
+
   function toast(msg, ms) {
     const t = $('#toast'); t.textContent = msg; t.classList.add('on');
     clearTimeout(t._tm); t._tm = setTimeout(() => t.classList.remove('on'), ms || 2200);
@@ -32,6 +51,15 @@
     probe.onload = () => { node.style.backgroundImage = 'url(' + url + ')'; };
     probe.onerror = () => { node.style.backgroundImage = 'linear-gradient(150deg,#5a1a14,#2b1208 60%,#1a0d06)'; };
     probe.src = url;
+  }
+
+  // 卡面配图：优先该卡专属历史照片，缺失则回落到类别配图
+  function setCardImg(node, c) {
+    const photo = 'assets/photos/' + c.id + '.jpg';
+    const probe = new Image();
+    probe.onload = () => { node.style.backgroundImage = 'url(' + photo + ')'; node.classList.add('has-photo'); };
+    probe.onerror = () => bgOrGradient(node, 'card_' + (CARD_IMGS.includes(c.img) ? c.img : 'home'));
+    probe.src = photo;
   }
 
   // 打字机
@@ -66,6 +94,7 @@
     $('#act-num').textContent = '第 ' + '一二三四五'[meta.act - 1] + ' 幕';
     $('#act-title').textContent = meta.title;
     $('#act-years').textContent = meta.years;
+    $('#act-slogan').innerHTML = ACT_SLOGANS[meta.act] ? '<div class="act-banner">' + ACT_SLOGANS[meta.act] + '</div>' : '';
     const tz = $('#tz-area'); tz.innerHTML = '';
     Audio2.play('gong');
     typewriter($('#act-intro'), meta.intro, 34, () => renderTurnZeroStep());
@@ -123,8 +152,26 @@
       stars.append(s);
     }
     $('#ap-chip').innerHTML = '行动点 <b>' + st.ap + '</b>';
+    renderAgendaChip();
     renderRes(); renderRel(); renderLog();
     $('#btn-ap').disabled = st.ap <= 0;
+  }
+
+  // 顶栏议程徽标：未识破=问号，已识破=名称+破解状态
+  function renderAgendaChip() {
+    const chip = $('#agenda-chip');
+    if (!chip) return;
+    const parts = [];
+    for (const p of ['ussr', 'us']) {
+      const info = Engine.agendaInfo(p);
+      if (!info) continue;
+      const who = p === 'ussr' ? (Engine.state.act >= 5 ? '俄' : '苏') : '美';
+      if (!info.revealed) parts.push('<span class="ag-tag unknown" title="未识破：可用国策行动『情报刺探』">' + who + '：？？？</span>');
+      else parts.push('<span class="ag-tag ' + (info.countered ? 'ok' : 'bad') + '" title="' + info.counterDesc + '">' +
+        who + '：' + info.name + (info.countered ? ' ✔' : ' ✖') + '</span>');
+    }
+    chip.innerHTML = parts.join('');
+    chip.onclick = () => { if (Engine.state.phase === 'play') openApPanel(); };
   }
 
   function renderRes() {
@@ -221,8 +268,7 @@
       <div class="card-body">${c.flavor}</div>
       ${c.type === 'crisis' ? '<div class="card-secret">绝密</div>' : ''}`;
     node.append(inner);
-    const imgKey = CARD_IMGS.includes(c.img) ? c.img : 'home';
-    bgOrGradient(inner.querySelector('.card-img'), 'card_' + imgKey);
+    setCardImg(inner.querySelector('.card-img'), c);
     return node;
   }
 
@@ -247,7 +293,7 @@
     const playable = Engine.eventPlayable(c);
     wrap.append(el('div', 'd-kicker', TYPE_NAMES[c.type] + '卡 · ' + (TAG_NAMES[c.tag] || '') + ' · 行动点 ' + c.ap));
     wrap.append(el('h2', null, c.name + '<span class="d-year">' + c.year + '</span>'));
-    const img = el('div', 'd-img'); bgOrGradient(img, 'card_' + (CARD_IMGS.includes(c.img) ? c.img : 'home')); wrap.append(img);
+    const img = el('div', 'd-img'); setCardImg(img, c); wrap.append(img);
     wrap.append(el('div', 'd-flavor', c.flavor));
     if (c.event && c.event.desc && !c.event.choices) wrap.append(el('div', 'd-desc', c.event.desc));
     if (c.event && c.event.choices) wrap.append(el('div', 'd-desc', c.event.desc || '需要作出抉择。'));
@@ -395,11 +441,14 @@
     const grid = el('div', 'ap-grid');
     for (const key of Object.keys(Engine.AP_ACTIONS)) {
       const a = Engine.AP_ACTIONS[key];
-      const b = el('button', 'ap-item');
-      b.innerHTML = '<b>' + a.name + '</b><span class="cost">' + a.cost + 'AP</span><p>' + a.desc + '</p>';
-      b.disabled = st.ap < a.cost;
+      const b = el('button', 'ap-item' + (key === 'spy' ? ' spy' : ''));
+      const spyOff = key === 'spy' && !Engine.spyAvailable();
+      b.innerHTML = '<b>' + (key === 'spy' ? '☭ ' : '') + a.name + '</b><span class="cost">' + a.cost + 'AP</span><p>' +
+        (spyOff ? '本幕情报渠道已用尽' : a.desc) + '</p>';
+      b.disabled = st.ap < a.cost || spyOff;
       b.onclick = () => {
         if (key === 'diplo') return openCountryPick();
+        if (key === 'spy') return openSpyPick();
         const r = Engine.spendAP(key);
         Audio2.play('stamp');
         renderBoard();
@@ -411,6 +460,50 @@
     const done = el('button', 'btn ghost', '完 成'); done.style.marginTop = '16px';
     done.onclick = () => { closeModal(); renderBoard(); };
     wrap.append(done);
+    openModal(wrap);
+  }
+
+  function openSpyPick() {
+    const st = Engine.state;
+    const wrap = el('div');
+    wrap.append(el('div', 'd-kicker', '情报刺探 · 消耗 2 行动点 · 每幕一次'));
+    wrap.append(el('h2', null, '截获谁的密电？'));
+    wrap.append(el('div', 'd-desc', '两个超级大国在本幕各有一项针对中国的战略议程，正在暗中推进。刺探成功即可看到议程内容与破解条件——幕末结算时，破解与否天差地别。'));
+    const grid = el('div', 'ap-grid');
+    [['ussr', st.act >= 5 ? '莫斯科（俄罗斯）' : '莫斯科（苏联）'], ['us', '华盛顿（美国）']].forEach(([p, label]) => {
+      const info = Engine.agendaInfo(p);
+      const b = el('button', 'ap-item');
+      b.innerHTML = '<b>' + label + '</b><p>' + (!info ? '本幕无议程' : info.revealed ? '已识破：' + info.name : '密级：绝密') + '</p>';
+      b.disabled = !info || info.revealed;
+      b.onclick = () => {
+        const r = Engine.spendAP('spy', p);
+        Audio2.play('stamp'); alertFlash();
+        renderBoard();
+        if (r && r.spy) showSpyResult(r.spy);
+        else openApPanel();
+      };
+      grid.append(b);
+    });
+    wrap.append(grid);
+    const back = el('button', 'btn ghost', '返 回'); back.style.marginTop = '16px';
+    back.onclick = openApPanel;
+    wrap.append(back);
+    openModal(wrap);
+  }
+
+  function showSpyResult(spy) {
+    const wrap = el('div');
+    wrap.append(el('div', 'd-kicker', '绝密 · 截获密电译文'));
+    wrap.append(el('h2', null, spy.name));
+    wrap.append(el('div', 'd-desc', '<b style="color:var(--red)">' + (spy.power === 'ussr' ? '莫斯科' : '华盛顿') + '</b> 本幕的战略议程已被识破。'));
+    const cond = el('div', 'agenda-result ' + (spy.countered ? 'foiled' : 'succeeded'));
+    cond.innerHTML = '<div class="ag-cond">破解条件：' + spy.counterDesc + '</div>' +
+      '<div class="ag-verdict-big">' + (spy.countered ? '✔ 当前已达成' : '✖ 当前尚未达成') + '</div>';
+    wrap.append(cond);
+    wrap.append(el('div', 'd-desc', '<span style="font-size:13px;color:var(--ink-soft)">幕末将按当时的状态判定。破解则对方偷鸡不成蚀把米，未破解则议程得逞。</span>'));
+    const ok = el('button', 'btn', '收 起'); ok.style.marginTop = '14px';
+    ok.onclick = openApPanel;
+    wrap.append(ok);
     openModal(wrap);
   }
 
@@ -440,20 +533,99 @@
     const st = Engine.state;
     if (st.phase !== 'play') return;
     const r = Engine.endTurn();
-    if (r.tension) { toast('⚠ ' + r.tension.desc, 3200); shake(); r.tension.deltas.forEach(flashPanel); Audio2.play('alarm'); }
-    if (st.gameOver) { curtain(renderEnding); return; }
-    if (r.finale) {
-      let delay = 400;
-      if (r.crisisBurst && r.crisisBurst.length) {
-        alertFlash(); shake(); Audio2.play('alarm');
-        toast('☠ 悬而未决的危机全面引爆：' + r.crisisBurst.map(x => x.card.name).join('、'), 3600);
-        delay = 2400;
+    renderBoard();
+
+    // 组装电报队列：阵营张力 + 各国反应 + 危机引爆
+    const queue = [];
+    if (r.tension) queue.push({ kind: 'tension', src: '本报综合', title: '两强夹缝', text: r.tension.desc, deltas: r.tension.deltas });
+    (r.wires || []).forEach(w => queue.push(w));
+    (r.crisisBurst || []).forEach(b => queue.push({
+      kind: 'burst', src: '紧急军情', title: '危机引爆 · ' + b.card.name,
+      text: '悬而未决的危机彻底失控，后果成倍降临。', deltas: b.deltas,
+    }));
+
+    const proceed = () => {
+      if (Engine.state.gameOver) { curtain(renderEnding); return; }
+      if (r.finale) {
+        if (r.agendaResults && r.agendaResults.length) showAgendaResults(r.agendaResults, () => curtain(renderFinale));
+        else curtain(renderFinale);
+      } else {
+        renderBoard(); renderHand(true);
+        toast(Engine.turnLabel(), 1800);
       }
-      setTimeout(() => { if (Engine.state.gameOver) curtain(renderEnding); else curtain(renderFinale); }, delay);
-    } else {
-      renderBoard(); renderHand(true);
-      toast(Engine.turnLabel(), 1800);
-    }
+    };
+    if (queue.length) showWires(queue, proceed); else proceed();
+  }
+
+  // ---------- 回合末电报 ----------
+  function showWires(queue, done) {
+    const overlay = el('div', 'overlay wire-overlay');
+    const sheet = el('div', 'wire-sheet');
+    sheet.innerHTML = '<div class="wire-head"><span class="wire-machine">▓▒░</span> 内 部 参 考 · 各 方 动 向 <span class="wire-machine">░▒▓</span></div>';
+    const body = el('div', 'wire-body');
+    sheet.append(body);
+    const foot = el('div', 'wire-foot');
+    const btn = el('button', 'btn gold', '阅 毕');
+    btn.disabled = true;
+    foot.append(btn); sheet.append(foot);
+    overlay.append(sheet);
+    $('#modal-root').append(overlay);
+
+    let i = 0;
+    const next = () => {
+      if (i >= queue.length) {
+        btn.disabled = false;
+        btn.onclick = () => { overlay.remove(); done(); };
+        return;
+      }
+      const w = queue[i++];
+      const item = el('div', 'wire-item kind-' + w.kind);
+      item.innerHTML = `<div class="wire-src">${w.src} <span class="wire-time">${wireStamp()}</span></div>
+        <div class="wire-title">${w.title}</div><div class="wire-text"></div>`;
+      body.append(item);
+      body.scrollTop = body.scrollHeight;
+      if (w.kind === 'threshold' || w.kind === 'burst') { shake(); alertFlash(); Audio2.play('alarm'); }
+      else Audio2.play('flip');
+      const txt = item.querySelector('.wire-text');
+      typewriter(txt, w.text, 22, () => {
+        if (w.deltas && w.deltas.length) {
+          item.append(deltaChips(w.deltas));
+          renderBoard();
+        }
+        body.scrollTop = body.scrollHeight;
+        setTimeout(next, 450);
+      });
+    };
+    setTimeout(next, 260);
+  }
+
+  function wireStamp() {
+    const st = Engine.state;
+    const meta = window.ACT_DATA[st.act].meta;
+    const [y0, y1] = meta.years.split('–').map(Number);
+    const y = Math.min(y1, y0 + Math.round((y1 - y0) * (st.turn - 1) / (meta.turns - 1 || 1)));
+    return y + '年';
+  }
+
+  // 幕末议程结算
+  function showAgendaResults(results, done) {
+    const wrap = el('div');
+    wrap.append(el('div', 'd-kicker', '幕末 · 两强战略议程揭晓'));
+    wrap.append(el('h2', null, '棋盘的另一面'));
+    results.forEach(r => {
+      const box = el('div', 'agenda-result ' + (r.foiled ? 'foiled' : 'succeeded'));
+      box.innerHTML = `<div class="ag-power">${r.power === 'ussr' ? (Engine.state.act >= 5 ? '俄罗斯' : '苏联') : '美国'}的议程</div>
+        <div class="ag-name">${r.name} <span class="ag-verdict">${r.foiled ? '已破解' : '得逞'}</span></div>
+        <div class="ag-cond">破解条件：${r.counterDesc}</div>
+        <div class="ag-text">${r.text}</div>`;
+      box.append(deltaChips(r.deltas));
+      wrap.append(box);
+    });
+    const ok = el('button', 'btn', '继 续'); ok.style.marginTop = '16px';
+    ok.onclick = () => { closeModal(); renderBoard(); done(); };
+    wrap.append(ok);
+    Audio2.play('gong');
+    openModal(wrap);
   }
 
   // ---------- 幕末 ----------
@@ -508,7 +680,7 @@
     btn.onclick = () => {
       if (Engine.state.gameOver) { curtain(renderEnding); }
       else if (r.ending) { Engine.state._finalEnding = r.ending; curtain(renderEnding); }
-      else curtain(renderActIntro);
+      else filmCard(Engine.state.act, renderActIntro);
     };
     panel.append(btn);
   }

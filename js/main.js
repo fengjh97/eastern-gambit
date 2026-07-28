@@ -6,12 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
     Engine.newGame();
     while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
     UI._debugEnterBoard();
-    setTimeout(() => {
-      const w = id => { const e = document.querySelector(id); return e ? Math.round(e.getBoundingClientRect().width) : -1; };
-      document.title = JSON.stringify({ vw: window.innerWidth, board: w('#scr-board'), main: w('#board-main'), res: w('#res-panel'), rel: w('#rel-panel'), stage: w('#stage'), log: w('#event-log'), hand: w('#hand-zone'), hdr: w('#board-header') });
-    }, 1500);
     if (h === '#autoplay') {
-      // 自动演示：点开第一张手牌 → 打出事件/首个选项
       setTimeout(() => { const c = document.querySelector('#hand-zone .card'); c && c.click(); }, 900);
       setTimeout(() => {
         const btn = [...document.querySelectorAll('.dossier .btn')].find(b => b.textContent.includes('处置事件'));
@@ -19,6 +14,41 @@ window.addEventListener('DOMContentLoaded', () => {
       }, 1800);
       setTimeout(() => { const ch = document.querySelector('.dossier .choice-btn:not(:disabled)'); ch && ch.click(); }, 2600);
     }
+    return;
+  }
+  if (h === '#autowire') {
+    Engine.newGame();
+    while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
+    const st = Engine.state;
+    st.rel.us = -8; st.rel.tw = -9; st.rel.ussr = 7; st.rel.nk = 6;
+    st.touched = { us: -3, ussr: 2 };
+    UI._debugEnterBoard();
+    setTimeout(() => document.querySelector('#btn-end-turn').click(), 600);
+    return;
+  }
+  if (h === '#autospy') {
+    Engine.newGame();
+    while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
+    Engine.state.ap = 6;
+    UI._debugEnterBoard();
+    setTimeout(() => document.querySelector('#btn-ap').click(), 500);
+    setTimeout(() => { const b = [...document.querySelectorAll('.ap-item')].find(x => x.textContent.includes('情报刺探')); b && b.click(); }, 1100);
+    setTimeout(() => { const b = document.querySelector('.ap-grid .ap-item:not(:disabled)'); b && b.click(); }, 1700);
+    return;
+  }
+  if (h === '#autoagenda') {
+    Engine.newGame();
+    while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
+    const st = Engine.state;
+    st.turn = window.ACT_DATA[1].meta.turns;
+    st.playsLeft = 0; st.hand = [];
+    UI._debugEnterBoard();
+    setTimeout(() => document.querySelector('#btn-end-turn').click(), 500);
+    const tryRead = () => {
+      const b = [...document.querySelectorAll('.wire-foot .btn')].find(x => !x.disabled);
+      if (b) b.click(); else setTimeout(tryRead, 400);
+    };
+    setTimeout(tryRead, 3000);
     return;
   }
   if (h === '#autofinale') {

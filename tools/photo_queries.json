@@ -1,0 +1,1682 @@
+{
+  "a1_01": {
+    "name": "开国大典",
+    "queries": [
+      "Founding ceremony of the People's Republic of China 1949",
+      "Tiananmen October 1 1949",
+      "Mao Zedong proclaiming People's Republic 1949"
+    ]
+  },
+  "a1_02": {
+    "name": "中苏友好同盟互助条约",
+    "queries": [
+      "Mao Zedong Stalin Moscow 1950",
+      "Sino-Soviet Treaty of Friendship signing ceremony 1950",
+      "Mao Zedong visit Moscow 1949"
+    ]
+  },
+  "a1_03": {
+    "name": "朝鲜战争爆发",
+    "queries": [
+      "Korean War 1950 troops",
+      "Chinese People's Volunteer Army crossing Yalu River 1950",
+      "North Korean army Seoul 1950"
+    ]
+  },
+  "a1_04": {
+    "name": "上甘岭战役",
+    "queries": [
+      "Battle of Triangle Hill 1952",
+      "Korean War Chinese soldiers 1952",
+      "Shangganling Korean War trenches"
+    ]
+  },
+  "a1_05": {
+    "name": "板门店停战",
+    "queries": [
+      "Korean Armistice signing Panmunjom 1953",
+      "Panmunjom armistice ceremony 1953",
+      "Korean War armistice delegates 1953"
+    ]
+  },
+  "a1_06": {
+    "name": "土地改革",
+    "queries": [
+      "Land reform China 1950 peasants",
+      "Chinese peasants land distribution 1950s",
+      "Land reform struggle meeting China 1951"
+    ]
+  },
+  "a1_07": {
+    "name": "镇压反革命",
+    "queries": [
+      "Campaign to Suppress Counterrevolutionaries 1951",
+      "Chinese public trial rally 1951",
+      "Chinese mass rally early 1950s"
+    ]
+  },
+  "a1_08": {
+    "name": "三反五反运动",
+    "queries": [
+      "Five-anti campaign Shanghai 1952",
+      "Three-anti campaign China 1952",
+      "Shanghai mass rally 1952"
+    ]
+  },
+  "a1_09": {
+    "name": "第一个五年计划",
+    "queries": [
+      "First Five-Year Plan China factory workers",
+      "Chinese industrial construction 1953",
+      "Chinese steel workers 1950s"
+    ]
+  },
+  "a1_10": {
+    "name": "一五六项工程",
+    "queries": [
+      "Soviet-aided industrial projects China 1950s",
+      "Changchun First Automobile Works construction 1950s",
+      "Luoyang tractor factory 1950s"
+    ]
+  },
+  "a1_11": {
+    "name": "苏联专家来华",
+    "queries": [
+      "Soviet experts in China 1950s",
+      "Soviet advisers Chinese factory 1954",
+      "Soviet engineers China industrial site 1950s"
+    ]
+  },
+  "a1_12": {
+    "name": "抗法援越",
+    "queries": [
+      "Battle of Dien Bien Phu 1954",
+      "Viet Minh soldiers First Indochina War",
+      "Viet Minh artillery 1954"
+    ]
+  },
+  "a1_13": {
+    "name": "日内瓦会议",
+    "queries": [
+      "Geneva Conference 1954 Zhou Enlai",
+      "Geneva Conference 1954 delegates",
+      "Geneva Conference Indochina 1954"
+    ]
+  },
+  "a1_14": {
+    "name": "和平共处五项原则",
+    "queries": [
+      "Zhou Enlai Nehru 1954 meeting",
+      "Zhou Enlai India visit 1954",
+      "Nehru welcome Beijing 1954"
+    ]
+  },
+  "a1_15": {
+    "name": "万隆会议",
+    "queries": [
+      "Bandung Conference 1955",
+      "Zhou Enlai Bandung 1955",
+      "Asian-African Conference Bandung delegates 1955"
+    ]
+  },
+  "a1_16": {
+    "name": "克什米尔公主号事件",
+    "queries": [
+      "Kashmir Princess 1955",
+      "Air India Lockheed Constellation 1955",
+      "Kashmir Princess crash wreckage"
+    ]
+  },
+  "a1_17": {
+    "name": "第一次台海危机",
+    "queries": [
+      "First Taiwan Strait Crisis 1954",
+      "Yijiangshan Islands battle 1955",
+      "Kinmen artillery shelling 1954"
+    ]
+  },
+  "a1_18": {
+    "name": "美台共同防御条约",
+    "queries": [
+      "Chiang Kai-shek 1954",
+      "US Seventh Fleet Taiwan Strait 1950s",
+      "Republic of China troops Taiwan 1954"
+    ]
+  },
+  "a1_19": {
+    "name": "西藏和平解放",
+    "queries": [
+      "People's Liberation Army entering Lhasa 1951",
+      "PLA troops Tibet 1951",
+      "Lhasa Potala Palace 1950s"
+    ]
+  },
+  "a1_20": {
+    "name": "根治水患",
+    "queries": [
+      "Huai River flood control workers 1951",
+      "Chinese dam construction laborers 1950s",
+      "Yellow River flood control 1950s"
+    ]
+  },
+  "a1_21": {
+    "name": "扫盲运动",
+    "queries": [
+      "Literacy campaign China 1950s classroom",
+      "Chinese peasants learning to read 1952",
+      "Chinese village school 1950s"
+    ]
+  },
+  "a1_22": {
+    "name": "婚姻法颁布",
+    "queries": [
+      "Marriage Law China 1950 poster",
+      "Chinese wedding 1950s",
+      "Chinese women workers 1950s"
+    ]
+  },
+  "a1_23": {
+    "name": "公私合营",
+    "queries": [
+      "Socialist transformation parade Shanghai 1956",
+      "Public-private joint ownership China 1956",
+      "Shanghai celebration parade 1956"
+    ]
+  },
+  "a1_24": {
+    "name": "统购统销",
+    "queries": [
+      "Chinese peasants delivering grain 1950s",
+      "Grain procurement China 1953",
+      "Chinese state grain store 1950s"
+    ]
+  },
+  "a1_25": {
+    "name": "双百方针",
+    "queries": [
+      "Hundred Flowers Campaign 1956",
+      "Chinese intellectuals meeting 1956",
+      "Chinese writers conference 1950s"
+    ]
+  },
+  "a1_26": {
+    "name": "反右运动",
+    "queries": [
+      "Anti-Rightist Campaign 1957",
+      "Chinese denunciation rally 1957",
+      "Chinese struggle session 1957"
+    ]
+  },
+  "a1_27": {
+    "name": "苏共二十大",
+    "queries": [
+      "20th Congress CPSU 1956",
+      "Nikita Khrushchev speech 1956",
+      "Khrushchev Kremlin 1956"
+    ]
+  },
+  "a1_28": {
+    "name": "波匈事件",
+    "queries": [
+      "Hungarian Revolution 1956 Budapest",
+      "Budapest 1956 tanks street",
+      "Poznan protests 1956"
+    ]
+  },
+  "a1_29": {
+    "name": "中日民间贸易协定",
+    "queries": [
+      "China Japan trade delegation 1950s",
+      "Japanese trade exhibition Beijing 1950s",
+      "Sino-Japanese trade agreement signing 1952"
+    ]
+  },
+  "a1_30": {
+    "name": "归国侨汇",
+    "queries": [
+      "Overseas Chinese returning ship 1950s",
+      "Overseas Chinese Guangdong 1950s",
+      "Xiamen overseas Chinese 1950s"
+    ]
+  },
+  "a1_31": {
+    "name": "钱学森归国",
+    "queries": [
+      "Qian Xuesen",
+      "Qian Xuesen 1955 ship return China",
+      "Hsue-Shen Tsien Caltech"
+    ]
+  },
+  "a1_32": {
+    "name": "人民空军初建",
+    "queries": [
+      "MiG-15 Korean War Chinese pilots",
+      "People's Liberation Army Air Force 1951",
+      "Chinese fighter pilots Korean War"
+    ]
+  },
+  "a1_33": {
+    "name": "海军起步",
+    "queries": [
+      "People's Liberation Army Navy 1950s",
+      "Chinese navy gunboat 1950s",
+      "PLA Navy sailors 1953"
+    ]
+  },
+  "a1_34": {
+    "name": "武汉长江大桥",
+    "queries": [
+      "Wuhan Yangtze River Bridge 1957",
+      "Wuhan bridge construction 1956",
+      "Wuhan Yangtze bridge opening ceremony 1957"
+    ]
+  },
+  "a1_35": {
+    "name": "第一辆解放牌汽车",
+    "queries": [
+      "Jiefang CA-10 truck",
+      "First Automobile Works Changchun 1956",
+      "First Jiefang truck ceremony 1956"
+    ]
+  },
+  "a1_36": {
+    "name": "鞍钢复产",
+    "queries": [
+      "Anshan Iron and Steel 1950s",
+      "Anshan steel furnace workers 1950s",
+      "Angang steel mill Manchuria"
+    ]
+  },
+  "a1_37": {
+    "name": "中缅边界谈判",
+    "queries": [
+      "Zhou Enlai U Nu",
+      "China Burma friendship visit 1950s",
+      "Burma delegation Beijing 1956"
+    ]
+  },
+  "a1_38": {
+    "name": "联合国席位之争",
+    "queries": [
+      "United Nations General Assembly 1955",
+      "UN headquarters New York 1950s",
+      "Chinese representation United Nations debate"
+    ]
+  },
+  "a1_39": {
+    "name": "禁毒禁娼",
+    "queries": [
+      "Opium burning China 1950s",
+      "Anti-opium campaign China 1950",
+      "Chinese police 1950s street"
+    ]
+  },
+  "a1_40": {
+    "name": "收回旅顺口",
+    "queries": [
+      "Soviet troops leaving Port Arthur 1955",
+      "Lüshun naval base 1955",
+      "Port Arthur handover ceremony 1955"
+    ]
+  },
+  "a1_41": {
+    "name": "党内整风",
+    "queries": [
+      "Chinese Communist Party cadres meeting 1957",
+      "Rectification campaign China 1957",
+      "CCP cadres study session 1950s"
+    ]
+  },
+  "a1_42": {
+    "name": "外贸破冰",
+    "queries": [
+      "Canton Fair Guangzhou 1957",
+      "Chinese Export Commodities Fair 1950s",
+      "Guangzhou trade exhibition hall 1957"
+    ]
+  },
+  "a1_43": {
+    "name": "英国承认新中国",
+    "queries": [
+      "British chargé d'affaires Beijing 1950s",
+      "British embassy Beijing 1950s",
+      "Ernest Bevin 1950"
+    ]
+  },
+  "a1_44": {
+    "name": "香港：长期打算",
+    "queries": [
+      "Hong Kong street scene 1949",
+      "Hong Kong harbour 1950",
+      "Hong Kong border Lo Wu 1950"
+    ]
+  },
+  "a2_01": {
+    "name": "人民公社化",
+    "queries": [
+      "People's commune China 1958",
+      "Commune communal dining hall China 1958",
+      "Great Leap Forward commune peasants"
+    ]
+  },
+  "a2_02": {
+    "name": "土法炼钢",
+    "queries": [
+      "Backyard furnaces China 1958",
+      "Great Leap Forward steel smelting 1958",
+      "Backyard steel furnace peasants 1958"
+    ]
+  },
+  "a2_03": {
+    "name": "庐山会议",
+    "queries": [
+      "Lushan Conference 1959",
+      "Peng Dehuai",
+      "Mao Zedong Lushan 1959"
+    ]
+  },
+  "a2_04": {
+    "name": "七千人大会",
+    "queries": [
+      "Seven Thousand Cadres Conference 1962",
+      "Liu Shaoqi 1962",
+      "Great Hall of the People conference 1962"
+    ]
+  },
+  "a2_05": {
+    "name": "调整巩固充实提高",
+    "queries": [
+      "Chinese rural market 1961",
+      "Chinese peasants farming early 1960s",
+      "China economic recovery 1962 street scene"
+    ]
+  },
+  "a2_06": {
+    "name": "第二次台海危机",
+    "queries": [
+      "Second Taiwan Strait Crisis 1958",
+      "Kinmen bombardment 1958 artillery",
+      "Quemoy shelling 1958"
+    ]
+  },
+  "a2_07": {
+    "name": "苏联撤走专家",
+    "queries": [
+      "Soviet experts leaving China 1960",
+      "Sino-Soviet split 1960",
+      "Soviet advisers departure railway station 1960"
+    ]
+  },
+  "a2_08": {
+    "name": "九评苏共",
+    "queries": [
+      "Sino-Soviet split polemics 1963",
+      "Chinese anti-Soviet propaganda poster 1960s",
+      "Beijing rally against Soviet revisionism 1960s"
+    ]
+  },
+  "a2_09": {
+    "name": "中印边界战争",
+    "queries": [
+      "Sino-Indian War 1962",
+      "Indian soldiers Himalayan border 1962",
+      "China India border war 1962 troops"
+    ]
+  },
+  "a2_10": {
+    "name": "古巴导弹危机",
+    "queries": [
+      "Cuban Missile Crisis 1962",
+      "U-2 photograph Cuba missile site 1962",
+      "US Navy blockade Cuba 1962"
+    ]
+  },
+  "a2_11": {
+    "name": "U-2侦察机被击落",
+    "queries": [
+      "U-2 wreckage exhibition Beijing",
+      "Lockheed U-2 shot down China",
+      "U-2 spy plane wreckage 1962"
+    ]
+  },
+  "a2_12": {
+    "name": "中法建交",
+    "queries": [
+      "Charles de Gaulle press conference 1964",
+      "France China diplomatic recognition 1964",
+      "Chinese embassy Paris 1964"
+    ]
+  },
+  "a2_13": {
+    "name": "第一颗原子弹",
+    "queries": [
+      "First Chinese nuclear test 1964",
+      "China atomic bomb mushroom cloud 1964",
+      "Lop Nur nuclear test 1964"
+    ]
+  },
+  "a2_14": {
+    "name": "导弹研制",
+    "queries": [
+      "Dongfeng missile China 1960s",
+      "Chinese ballistic missile test 1960s",
+      "DF-2 missile launch"
+    ]
+  },
+  "a2_15": {
+    "name": "大庆油田",
+    "queries": [
+      "Daqing oil field 1960s",
+      "Daqing oil derrick workers",
+      "Chinese oil workers drilling 1960s"
+    ]
+  },
+  "a2_16": {
+    "name": "铁人王进喜",
+    "queries": [
+      "Wang Jinxi Iron Man",
+      "Daqing drilling crew 1960",
+      "Wang Jinxi oil worker"
+    ]
+  },
+  "a2_17": {
+    "name": "学雷锋运动",
+    "queries": [
+      "Lei Feng",
+      "Learn from Lei Feng campaign 1963",
+      "Lei Feng propaganda poster"
+    ]
+  },
+  "a2_18": {
+    "name": "三线建设",
+    "queries": [
+      "Third Front construction China 1960s",
+      "Chinese factory construction mountains 1960s",
+      "Panzhihua steel construction 1960s"
+    ]
+  },
+  "a2_19": {
+    "name": "四清运动",
+    "queries": [
+      "Socialist Education Movement 1963",
+      "Chinese work team village 1960s",
+      "Chinese cadres countryside 1964"
+    ]
+  },
+  "a2_20": {
+    "name": "越南战争升级",
+    "queries": [
+      "US Marines landing Da Nang 1965",
+      "Vietnam War 1965 US troops",
+      "Operation Rolling Thunder 1965"
+    ]
+  },
+  "a2_21": {
+    "name": "印尼九三〇事件",
+    "queries": [
+      "30 September Movement Indonesia 1965",
+      "Indonesian army Jakarta 1965",
+      "Suharto 1965"
+    ]
+  },
+  "a2_22": {
+    "name": "赫鲁晓夫下台",
+    "queries": [
+      "Nikita Khrushchev 1964",
+      "Leonid Brezhnev 1964",
+      "Kremlin leadership 1964"
+    ]
+  },
+  "a2_23": {
+    "name": "中巴划界与友好",
+    "queries": [
+      "Zhou Enlai Pakistan visit 1964",
+      "Ayub Khan China visit",
+      "China Pakistan friendship 1960s"
+    ]
+  },
+  "a2_24": {
+    "name": "西藏平叛",
+    "queries": [
+      "Tibetan uprising 1959 Lhasa",
+      "Dalai Lama flight to India 1959",
+      "Lhasa 1959"
+    ]
+  },
+  "a2_25": {
+    "name": "边界条约连签",
+    "queries": [
+      "China Burma border treaty signing 1960",
+      "Zhou Enlai Ne Win 1960",
+      "China Nepal border agreement 1961"
+    ]
+  },
+  "a2_26": {
+    "name": "世乒赛夺冠",
+    "queries": [
+      "World Table Tennis Championships Beijing 1961",
+      "Zhuang Zedong table tennis",
+      "Rong Guotuan table tennis"
+    ]
+  },
+  "a2_27": {
+    "name": "农业学大寨",
+    "queries": [
+      "Dazhai village terraced fields",
+      "Chen Yonggui Dazhai",
+      "Learn from Dazhai agriculture campaign"
+    ]
+  },
+  "a2_28": {
+    "name": "哈军工与国防科技",
+    "queries": [
+      "Harbin Military Engineering Institute",
+      "Chinese military academy students 1960s",
+      "PLA engineering cadets 1950s"
+    ]
+  },
+  "a2_29": {
+    "name": "氢弹预研",
+    "queries": [
+      "Chinese nuclear scientists 1960s",
+      "Yu Min physicist",
+      "Chinese nuclear weapons laboratory 1960s"
+    ]
+  },
+  "a2_30": {
+    "name": "侨务风波",
+    "queries": [
+      "Overseas Chinese repatriation ship Indonesia 1960",
+      "Returned overseas Chinese farm 1960",
+      "Anti-Chinese riots Indonesia 1960"
+    ]
+  },
+  "a2_31": {
+    "name": "LT贸易备忘录",
+    "queries": [
+      "Liao Chengzhi",
+      "China Japan trade memorandum 1962 signing",
+      "Japanese trade delegation Beijing 1960s"
+    ]
+  },
+  "a2_32": {
+    "name": "逃港潮",
+    "queries": [
+      "Chinese refugees Hong Kong 1962",
+      "Hong Kong border refugees 1962",
+      "Sham Chun River border 1962"
+    ]
+  },
+  "a2_33": {
+    "name": "广交会扩大",
+    "queries": [
+      "Canton Fair Guangzhou 1959",
+      "Chinese Export Commodities Fair exhibition 1960s",
+      "Guangzhou trade fair visitors 1960s"
+    ]
+  },
+  "a2_34": {
+    "name": "备战备荒",
+    "queries": [
+      "Chinese militia training 1965",
+      "People's militia China rifles 1960s",
+      "Chinese air raid shelter construction 1960s"
+    ]
+  },
+  "a2_35": {
+    "name": "东风压倒西风",
+    "queries": [
+      "Mao Zedong Moscow 1957",
+      "Moscow meeting communist parties 1957",
+      "Mao Zedong Soviet Union visit 1957"
+    ]
+  },
+  "a2_36": {
+    "name": "汉城军人政变",
+    "queries": [
+      "May 16 coup Seoul 1961",
+      "Park Chung-hee 1961 soldiers",
+      "South Korean army Seoul 1961"
+    ]
+  },
+  "a2_37": {
+    "name": "伊塔事件",
+    "queries": [
+      "Yining Xinjiang 1962",
+      "Sino-Soviet border Xinjiang 1960s",
+      "Kazakh herders Xinjiang 1960s"
+    ]
+  },
+  "a2_38": {
+    "name": "精简城镇人口",
+    "queries": [
+      "Chinese workers sent countryside 1961",
+      "Chinese railway station crowds 1960s",
+      "Chinese urban street scene 1961"
+    ]
+  },
+  "a2_39": {
+    "name": "送瘟神",
+    "queries": [
+      "Schistosomiasis campaign China 1958",
+      "Snail elimination campaign Chinese peasants",
+      "Chinese health workers village 1950s"
+    ]
+  },
+  "a2_40": {
+    "name": "中朝友好合作互助条约",
+    "queries": [
+      "Kim Il Sung Beijing 1961",
+      "Sino-North Korean treaty signing 1961",
+      "Kim Il Sung Zhou Enlai"
+    ]
+  },
+  "a2_41": {
+    "name": "登顶珠穆朗玛",
+    "queries": [
+      "Chinese Mount Everest expedition 1960",
+      "Everest north face climbers 1960",
+      "Chinese mountaineers 1960"
+    ]
+  },
+  "a2_42": {
+    "name": "周恩来访非十四国",
+    "queries": [
+      "Zhou Enlai Africa tour 1963",
+      "Zhou Enlai Egypt visit 1963",
+      "Zhou Enlai Nasser"
+    ]
+  },
+  "a3_01": {
+    "name": "文化大革命全面发动",
+    "queries": [
+      "Red Guards Tiananmen Square 1966",
+      "Cultural Revolution rally 1966 Mao Zedong",
+      "Mao Zedong reviewing Red Guards 1966"
+    ]
+  },
+  "a3_02": {
+    "name": "红卫兵与破四旧",
+    "queries": [
+      "Red Guards 1966",
+      "Destroy Four Olds campaign 1966",
+      "Red Guards street parade 1966"
+    ]
+  },
+  "a3_03": {
+    "name": "火烧英国代办处",
+    "queries": [
+      "British legation Beijing burned 1967",
+      "Red Guards British mission 1967",
+      "Anti-British demonstration Beijing 1967"
+    ]
+  },
+  "a3_04": {
+    "name": "外交系统瘫痪",
+    "queries": [
+      "Red Guards demonstration foreign embassy Beijing 1967",
+      "Cultural Revolution Beijing street posters 1967",
+      "Foreign Ministry Beijing 1967"
+    ]
+  },
+  "a3_05": {
+    "name": "武汉七二〇事件",
+    "queries": [
+      "Wuhan Incident July 1967",
+      "Cultural Revolution factional fighting 1967",
+      "Wuhan 1967"
+    ]
+  },
+  "a3_06": {
+    "name": "知识青年上山下乡",
+    "queries": [
+      "Sent-down youth China 1968",
+      "Educated youth countryside China 1969",
+      "Chinese youth farm labor Cultural Revolution"
+    ]
+  },
+  "a3_07": {
+    "name": "珍宝岛冲突",
+    "queries": [
+      "Zhenbao Island incident 1969",
+      "Damansky Island conflict 1969",
+      "Sino-Soviet border conflict Ussuri 1969"
+    ]
+  },
+  "a3_08": {
+    "name": "核威胁与\"深挖洞\"",
+    "queries": [
+      "Beijing underground air raid tunnels 1970s",
+      "Chinese civil defense tunnels Cultural Revolution",
+      "Underground city Beijing shelter"
+    ]
+  },
+  "a3_09": {
+    "name": "林彪事件",
+    "queries": [
+      "Lin Biao",
+      "Lin Biao Mao Zedong 1966",
+      "Trident aircraft crash Mongolia 1971"
+    ]
+  },
+  "a3_10": {
+    "name": "乒乓外交",
+    "queries": [
+      "Ping pong diplomacy 1971 table tennis Beijing",
+      "US table tennis team visit China 1971",
+      "American table tennis players Great Wall 1971"
+    ]
+  },
+  "a3_11": {
+    "name": "基辛格秘密访华",
+    "queries": [
+      "Kissinger Zhou Enlai 1971",
+      "Kissinger secret visit Beijing 1971",
+      "Henry Kissinger China 1971"
+    ]
+  },
+  "a3_12": {
+    "name": "联合国恢复席位",
+    "queries": [
+      "PRC delegation United Nations 1971",
+      "UN General Assembly Resolution 2758 vote 1971",
+      "Qiao Guanhua United Nations 1971"
+    ]
+  },
+  "a3_13": {
+    "name": "中日邦交正常化",
+    "queries": [
+      "Zhou Enlai Tanaka Kakuei 1972",
+      "China Japan joint communique signing 1972",
+      "Japan China normalization 1972 Beijing"
+    ]
+  },
+  "a3_14": {
+    "name": "田中角荣访华",
+    "queries": [
+      "Tanaka Kakuei visit China 1972",
+      "Tanaka Mao Zedong meeting 1972",
+      "Tanaka Kakuei Beijing airport 1972"
+    ]
+  },
+  "a3_15": {
+    "name": "中美互设联络处",
+    "queries": [
+      "Nixon visit China 1972",
+      "US Liaison Office Beijing 1973",
+      "David Bruce Beijing 1973"
+    ]
+  },
+  "a3_16": {
+    "name": "西沙海战",
+    "queries": [
+      "Battle of the Paracel Islands 1974",
+      "Paracel Islands 1974",
+      "South Vietnamese navy 1974"
+    ]
+  },
+  "a3_17": {
+    "name": "东方红一号",
+    "queries": [
+      "Dong Fang Hong 1 satellite",
+      "Long March 1 rocket launch 1970",
+      "Chinese satellite launch 1970"
+    ]
+  },
+  "a3_18": {
+    "name": "氢弹试爆成功",
+    "queries": [
+      "Chinese hydrogen bomb test 1967",
+      "China thermonuclear test mushroom cloud 1967",
+      "Lop Nur test 1967"
+    ]
+  },
+  "a3_19": {
+    "name": "核潜艇下水",
+    "queries": [
+      "Type 091 nuclear submarine",
+      "Han class submarine China",
+      "PLA Navy submarine 1970s"
+    ]
+  },
+  "a3_20": {
+    "name": "批林批孔",
+    "queries": [
+      "Criticize Lin Criticize Confucius campaign 1974",
+      "Chinese propaganda posters 1974",
+      "Cultural Revolution wall posters 1974"
+    ]
+  },
+  "a3_21": {
+    "name": "四届人大与四个现代化",
+    "queries": [
+      "Fourth National People's Congress 1975",
+      "Zhou Enlai 1975",
+      "Great Hall of the People congress 1975"
+    ]
+  },
+  "a3_22": {
+    "name": "邓小平复出与全面整顿",
+    "queries": [
+      "Deng Xiaoping 1975",
+      "Deng Xiaoping United Nations 1974",
+      "Deng Xiaoping speech 1974"
+    ]
+  },
+  "a3_23": {
+    "name": "总理逝世与四五运动",
+    "queries": [
+      "Tiananmen Incident April 1976",
+      "Tiananmen Square mourning Zhou Enlai 1976",
+      "Monument to the People's Heroes wreaths 1976"
+    ]
+  },
+  "a3_24": {
+    "name": "唐山大地震",
+    "queries": [
+      "Tangshan earthquake 1976",
+      "Tangshan earthquake ruins 1976",
+      "Tangshan earthquake rescue 1976"
+    ]
+  },
+  "a3_25": {
+    "name": "毛泽东逝世",
+    "queries": [
+      "Mao Zedong memorial service 1976",
+      "Mao Zedong death mourning Tiananmen 1976",
+      "Mao Zedong funeral 1976"
+    ]
+  },
+  "a3_26": {
+    "name": "粉碎四人帮",
+    "queries": [
+      "Gang of Four trial 1980",
+      "Hua Guofeng 1976",
+      "Celebration rally smashing Gang of Four 1976"
+    ]
+  },
+  "a3_27": {
+    "name": "杂交水稻",
+    "queries": [
+      "Yuan Longping hybrid rice",
+      "Hybrid rice paddy China",
+      "Yuan Longping rice field"
+    ]
+  },
+  "a3_28": {
+    "name": "坦赞铁路",
+    "queries": [
+      "TAZARA railway construction",
+      "Tanzania Zambia railway Chinese workers 1970",
+      "Tazara railway opening 1975"
+    ]
+  },
+  "a3_29": {
+    "name": "中英升格大使级",
+    "queries": [
+      "British embassy Beijing 1972",
+      "Edward Heath China visit",
+      "UK China ambassador 1972"
+    ]
+  },
+  "a3_30": {
+    "name": "西哈努克流亡北京",
+    "queries": [
+      "Norodom Sihanouk Beijing 1970",
+      "Sihanouk Zhou Enlai",
+      "Sihanouk exile China 1970s"
+    ]
+  },
+  "a3_31": {
+    "name": "援越抗美高峰",
+    "queries": [
+      "North Vietnamese anti-aircraft gunners 1968",
+      "Chinese aid North Vietnam 1960s",
+      "Ho Chi Minh trail trucks supplies"
+    ]
+  },
+  "a3_32": {
+    "name": "巴黎协定后的印支",
+    "queries": [
+      "Paris Peace Accords signing 1973",
+      "Le Duc Tho Kissinger 1973",
+      "Vietnam ceasefire 1973"
+    ]
+  },
+  "a3_33": {
+    "name": "朝鲜关系升温",
+    "queries": [
+      "Kim Il Sung China visit 1970s",
+      "Zhou Enlai Pyongyang 1970",
+      "China North Korea delegation 1970"
+    ]
+  },
+  "a3_34": {
+    "name": "缅甸排华风潮",
+    "queries": [
+      "Rangoon riots 1967",
+      "Rangoon street scene 1960s",
+      "Anti-Chinese riots Burma 1967"
+    ]
+  },
+  "a3_35": {
+    "name": "\"两报一刊\"与个人崇拜",
+    "queries": [
+      "Mao Zedong cult of personality posters",
+      "Little Red Book rally 1967",
+      "Chinese propaganda newspaper Cultural Revolution"
+    ]
+  },
+  "a3_36": {
+    "name": "五七干校",
+    "queries": [
+      "May Seventh Cadre School",
+      "Chinese cadres farm labor 1969",
+      "Cadre school countryside Cultural Revolution"
+    ]
+  },
+  "a3_37": {
+    "name": "赤脚医生",
+    "queries": [
+      "Barefoot doctors China",
+      "Barefoot doctor village clinic 1970s",
+      "Rural health worker China 1968"
+    ]
+  },
+  "a3_38": {
+    "name": "青瓦台事件与半岛紧张",
+    "queries": [
+      "USS Pueblo 1968",
+      "Blue House raid 1968",
+      "Korean DMZ soldiers 1968"
+    ]
+  },
+  "a3_39": {
+    "name": "西欧建交潮",
+    "queries": [
+      "West Germany China diplomatic relations 1972",
+      "Chinese embassy Bonn 1973",
+      "European diplomats Beijing 1972"
+    ]
+  },
+  "a3_40": {
+    "name": "蒋介石去世",
+    "queries": [
+      "Chiang Kai-shek funeral 1975",
+      "Chiang Kai-shek 1970s",
+      "Taipei mourning Chiang Kai-shek 1975"
+    ]
+  },
+  "a4_01": {
+    "name": "真理标准大讨论",
+    "queries": [
+      "Hu Yaobang 1978",
+      "Guangming Daily 1978",
+      "Chinese Communist Party meeting 1978"
+    ]
+  },
+  "a4_02": {
+    "name": "十一届三中全会",
+    "queries": [
+      "Third Plenum 11th Central Committee 1978",
+      "Deng Xiaoping December 1978",
+      "Chinese Communist Party plenum Beijing 1978"
+    ]
+  },
+  "a4_03": {
+    "name": "小岗村包产到户",
+    "queries": [
+      "Xiaogang village Anhui",
+      "Xiaogang village household contract 1978",
+      "Anhui farmers 1978"
+    ]
+  },
+  "a4_04": {
+    "name": "家庭联产承包推广",
+    "queries": [
+      "Household responsibility system farmers 1982",
+      "Chinese peasants harvest early 1980s",
+      "Chinese village farming 1982"
+    ]
+  },
+  "a4_05": {
+    "name": "恢复高考",
+    "queries": [
+      "Gaokao 1977 examination",
+      "Chinese university entrance exam 1977 students",
+      "Chinese students examination hall 1977"
+    ]
+  },
+  "a4_06": {
+    "name": "平反冤假错案",
+    "queries": [
+      "Chinese intellectuals rehabilitation 1978",
+      "Peking University students 1978",
+      "Chinese cadres returning work 1978"
+    ]
+  },
+  "a4_07": {
+    "name": "第二代核心确立",
+    "queries": [
+      "Deng Xiaoping 1980",
+      "Deng Xiaoping leadership 1980s",
+      "Hu Yaobang Zhao Ziyang 1980s"
+    ]
+  },
+  "a4_08": {
+    "name": "经济特区",
+    "queries": [
+      "Shenzhen Special Economic Zone construction 1980s",
+      "Shenzhen 1982 construction",
+      "Shenzhen skyline 1980s"
+    ]
+  },
+  "a4_09": {
+    "name": "蛇口工业区",
+    "queries": [
+      "Shekou Industrial Zone 1979",
+      "Shekou Shenzhen construction 1980",
+      "Yuan Geng Shekou"
+    ]
+  },
+  "a4_10": {
+    "name": "中美建交",
+    "queries": [
+      "Deng Xiaoping Jimmy Carter 1979",
+      "Deng Xiaoping United States visit 1979",
+      "US China normalization ceremony 1979"
+    ]
+  },
+  "a4_11": {
+    "name": "《告台湾同胞书》",
+    "queries": [
+      "Xiamen Kinmen coast 1979",
+      "Taiwan Strait coast propaganda loudspeakers",
+      "Kinmen frontline 1979"
+    ]
+  },
+  "a4_12": {
+    "name": "对台三通倡议",
+    "queries": [
+      "Kinmen Taiwan 1980s",
+      "Xiamen harbor 1980s",
+      "Taiwan Strait fishing boats 1980s"
+    ]
+  },
+  "a4_13": {
+    "name": "中越战争",
+    "queries": [
+      "Sino-Vietnamese War 1979",
+      "Chinese troops Vietnam border 1979",
+      "Lang Son 1979"
+    ]
+  },
+  "a4_14": {
+    "name": "中日和平友好条约",
+    "queries": [
+      "Deng Xiaoping Japan visit 1978",
+      "Deng Xiaoping Fukuda Takeo 1978",
+      "Deng Xiaoping Shinkansen 1978"
+    ]
+  },
+  "a4_15": {
+    "name": "宝钢与日元贷款",
+    "queries": [
+      "Baoshan Iron and Steel construction 1979",
+      "Baosteel Shanghai plant 1980s",
+      "Japanese engineers China steel plant 1980s"
+    ]
+  },
+  "a4_16": {
+    "name": "人口洪峰",
+    "queries": [
+      "One-child policy poster 1980s",
+      "Chinese family planning propaganda 1980s",
+      "Chinese street crowds 1980s"
+    ]
+  },
+  "a4_17": {
+    "name": "一九八三严打",
+    "queries": [
+      "Strike Hard campaign 1983",
+      "Chinese public sentencing rally 1983",
+      "Chinese police 1983"
+    ]
+  },
+  "a4_18": {
+    "name": "洛杉矶奥运会",
+    "queries": [
+      "Xu Haifeng 1984 Olympics gold medal",
+      "China 1984 Los Angeles Olympics delegation",
+      "Li Ning 1984 Olympics gymnastics"
+    ]
+  },
+  "a4_19": {
+    "name": "中英香港谈判",
+    "queries": [
+      "Margaret Thatcher Deng Xiaoping 1982",
+      "Thatcher Beijing 1982 Great Hall",
+      "Thatcher Hong Kong visit 1982"
+    ]
+  },
+  "a4_20": {
+    "name": "中英联合声明签署",
+    "queries": [
+      "Sino-British Joint Declaration signing 1984",
+      "Thatcher Zhao Ziyang 1984 Beijing",
+      "Hong Kong Joint Declaration ceremony 1984"
+    ]
+  },
+  "a4_21": {
+    "name": "中葡澳门联合声明",
+    "queries": [
+      "Sino-Portuguese Joint Declaration 1987",
+      "Macau 1987",
+      "Portugal China signing ceremony 1987"
+    ]
+  },
+  "a4_22": {
+    "name": "价格闯关",
+    "queries": [
+      "China panic buying 1988",
+      "Chinese shoppers queue 1988",
+      "Chinese savings bank queue 1988"
+    ]
+  },
+  "a4_23": {
+    "name": "官倒与双轨制",
+    "queries": [
+      "Chinese street market 1980s",
+      "Chinese goods truck transport 1980s",
+      "Chinese department store 1986"
+    ]
+  },
+  "a4_24": {
+    "name": "八六学潮",
+    "queries": [
+      "Chinese student demonstrations 1986",
+      "Shanghai student protests December 1986",
+      "Hefei students 1986"
+    ]
+  },
+  "a4_25": {
+    "name": "戈尔巴乔夫上台",
+    "queries": [
+      "Mikhail Gorbachev 1985",
+      "Gorbachev general secretary 1985",
+      "Gorbachev Kremlin 1985"
+    ]
+  },
+  "a4_26": {
+    "name": "中苏关系正常化进程",
+    "queries": [
+      "Gorbachev visit Beijing 1989",
+      "Deng Xiaoping Gorbachev handshake 1989",
+      "Sino-Soviet summit 1989"
+    ]
+  },
+  "a4_27": {
+    "name": "百万大裁军",
+    "queries": [
+      "People's Liberation Army 1985",
+      "PLA soldiers demobilization 1985",
+      "Chinese army parade 1984"
+    ]
+  },
+  "a4_28": {
+    "name": "军转民",
+    "queries": [
+      "Chinese defense factory civilian production 1980s",
+      "Chinese factory assembly line 1980s",
+      "Chinese workers electronics factory 1986"
+    ]
+  },
+  "a4_29": {
+    "name": "乡镇企业异军突起",
+    "queries": [
+      "Township enterprises China 1980s",
+      "Chinese village factory 1984",
+      "Rural industry workshop China 1980s"
+    ]
+  },
+  "a4_30": {
+    "name": "万元户与个体户",
+    "queries": [
+      "Getihu street vendor China 1980s",
+      "Chinese private traders early 1980s",
+      "Chinese free market stalls 1981"
+    ]
+  },
+  "a4_31": {
+    "name": "引进外资合资企业",
+    "queries": [
+      "Beijing Jeep 1984",
+      "Volkswagen Santana Shanghai 1984",
+      "Joint venture factory China 1984"
+    ]
+  },
+  "a4_32": {
+    "name": "留学潮",
+    "queries": [
+      "Chinese students abroad 1980s",
+      "Chinese students American university 1980s",
+      "Chinese overseas students airport 1980s"
+    ]
+  },
+  "a4_33": {
+    "name": "海南建省办特区",
+    "queries": [
+      "Haikou Hainan 1988",
+      "Hainan province 1988",
+      "Haikou street scene 1980s"
+    ]
+  },
+  "a4_34": {
+    "name": "科学的春天与863计划",
+    "queries": [
+      "Chinese scientists laboratory 1986",
+      "863 Program China",
+      "Deng Xiaoping meeting scientists 1980s"
+    ]
+  },
+  "a4_35": {
+    "name": "美苏缓和大势",
+    "queries": [
+      "Reagan Gorbachev INF Treaty signing 1987",
+      "Washington summit 1987 Reagan Gorbachev",
+      "Reagan Gorbachev Geneva 1985"
+    ]
+  },
+  "a4_36": {
+    "name": "南极长城站",
+    "queries": [
+      "Great Wall Station Antarctica",
+      "Chinese Antarctic expedition 1985",
+      "Antarctic research station China 1985"
+    ]
+  },
+  "a4_37": {
+    "name": "正大集团与外资北上",
+    "queries": [
+      "Chia Tai Group Shenzhen",
+      "Foreign investment Shenzhen factory 1980s",
+      "Hong Kong businessmen Guangdong 1980s"
+    ]
+  },
+  "a4_38": {
+    "name": "新加坡经验考察",
+    "queries": [
+      "Deng Xiaoping Singapore visit 1978",
+      "Deng Xiaoping Lee Kuan Yew 1978",
+      "Singapore 1978 city"
+    ]
+  },
+  "a4_39": {
+    "name": "中韩民间贸易萌芽",
+    "queries": [
+      "Weihai port 1980s",
+      "Shandong port trade 1988",
+      "Chinese Korean traders 1988"
+    ]
+  },
+  "a4_40": {
+    "name": "汉城奥运会",
+    "queries": [
+      "Seoul Olympics 1988 opening ceremony",
+      "1988 Summer Olympics Seoul stadium",
+      "Seoul Olympic Games 1988"
+    ]
+  },
+  "a4_41": {
+    "name": "朝鲜的猜忌",
+    "queries": [
+      "Kim Il Sung 1985",
+      "Pyongyang military parade 1980s",
+      "North Korea Pyongyang 1985"
+    ]
+  },
+  "a4_42": {
+    "name": "仰光爆炸案",
+    "queries": [
+      "Rangoon bombing 1983",
+      "Martyrs' Mausoleum Rangoon",
+      "Aung San Martyrs Mausoleum Yangon"
+    ]
+  },
+  "a5_01": {
+    "name": "治理整顿",
+    "queries": [
+      "Chinese state factory workers 1990",
+      "Beijing street scene 1990",
+      "Chinese market 1990"
+    ]
+  },
+  "a5_02": {
+    "name": "北京亚运会",
+    "queries": [
+      "1990 Asian Games Beijing opening ceremony",
+      "Beijing Asian Games 1990",
+      "Workers Stadium Beijing 1990"
+    ]
+  },
+  "a5_03": {
+    "name": "苏联解体",
+    "queries": [
+      "Soviet flag lowered Kremlin 1991",
+      "Dissolution of the Soviet Union 1991",
+      "Boris Yeltsin tank August 1991"
+    ]
+  },
+  "a5_04": {
+    "name": "东欧剧变余波",
+    "queries": [
+      "Fall of the Berlin Wall 1989",
+      "Romanian Revolution 1989 Bucharest",
+      "Eastern Europe protests 1989"
+    ]
+  },
+  "a5_05": {
+    "name": "邓小平南方谈话",
+    "queries": [
+      "Deng Xiaoping southern tour 1992",
+      "Deng Xiaoping Shenzhen 1992",
+      "Deng Xiaoping 1992 inspection"
+    ]
+  },
+  "a5_06": {
+    "name": "社会主义市场经济体制",
+    "queries": [
+      "14th National Congress Communist Party 1992",
+      "Jiang Zemin 1992 congress",
+      "Shanghai Stock Exchange trading 1992"
+    ]
+  },
+  "a5_07": {
+    "name": "浦东开发开放",
+    "queries": [
+      "Pudong construction 1990s",
+      "Lujiazui Shanghai 1990s skyline",
+      "Oriental Pearl Tower construction 1994"
+    ]
+  },
+  "a5_08": {
+    "name": "分税制改革",
+    "queries": [
+      "Zhu Rongji 1994",
+      "Chinese tax office 1990s",
+      "Chinese government economic meeting 1994"
+    ]
+  },
+  "a5_09": {
+    "name": "汇率并轨",
+    "queries": [
+      "Renminbi banknotes 1994",
+      "Bank of China exchange counter 1990s",
+      "Chinese bank tellers 1994"
+    ]
+  },
+  "a5_10": {
+    "name": "国企改革与下岗潮",
+    "queries": [
+      "Laid-off workers China 1997",
+      "Chinese state factory closure 1990s",
+      "Shenyang industrial workers 1990s"
+    ]
+  },
+  "a5_11": {
+    "name": "社会保障体系起步",
+    "queries": [
+      "Chinese reemployment job fair 1998",
+      "Chinese workers job market 1990s",
+      "Chinese community social service 1998"
+    ]
+  },
+  "a5_12": {
+    "name": "香港回归",
+    "queries": [
+      "Hong Kong handover ceremony 1997",
+      "Hong Kong handover July 1997 flag",
+      "PLA troops entering Hong Kong 1997"
+    ]
+  },
+  "a5_13": {
+    "name": "澳门回归",
+    "queries": [
+      "Macau handover ceremony 1999",
+      "Macau handover December 1999",
+      "Macau 1999 transfer sovereignty"
+    ]
+  },
+  "a5_14": {
+    "name": "亚洲金融风暴",
+    "queries": [
+      "Asian financial crisis 1997",
+      "Hong Kong stock exchange traders 1997",
+      "Bangkok financial crisis 1997"
+    ]
+  },
+  "a5_15": {
+    "name": "银河号事件",
+    "queries": [
+      "Yinhe container ship",
+      "Chinese cargo ship 1993",
+      "Container ship Persian Gulf 1993"
+    ]
+  },
+  "a5_16": {
+    "name": "台海导弹危机",
+    "queries": [
+      "Taiwan Strait Crisis 1996",
+      "USS Nimitz carrier 1996",
+      "PLA missile exercise 1996"
+    ]
+  },
+  "a5_17": {
+    "name": "炸馆事件",
+    "queries": [
+      "Chinese embassy Belgrade bombing 1999",
+      "NATO bombing Belgrade 1999",
+      "Anti-NATO protests Beijing 1999"
+    ]
+  },
+  "a5_18": {
+    "name": "中美撞机事件",
+    "queries": [
+      "Hainan Island incident 2001",
+      "US Navy EP-3 aircraft",
+      "EP-3 crew return 2001"
+    ]
+  },
+  "a5_19": {
+    "name": "最惠国待遇年审",
+    "queries": [
+      "Container port China 1990s exports",
+      "US Congress China trade debate 1990s",
+      "Chinese export factory 1994"
+    ]
+  },
+  "a5_20": {
+    "name": "克林顿访华",
+    "queries": [
+      "Bill Clinton visit China 1998",
+      "Clinton Jiang Zemin 1998",
+      "Clinton Peking University speech 1998"
+    ]
+  },
+  "a5_21": {
+    "name": "朱镕基访美",
+    "queries": [
+      "Zhu Rongji United States visit 1999",
+      "Zhu Rongji Clinton 1999",
+      "Zhu Rongji press conference 1999"
+    ]
+  },
+  "a5_22": {
+    "name": "复关谈判受挫",
+    "queries": [
+      "GATT Geneva 1994",
+      "China WTO negotiations 1990s",
+      "Geneva trade talks delegates 1994"
+    ]
+  },
+  "a5_23": {
+    "name": "中俄战略协作伙伴",
+    "queries": [
+      "Jiang Zemin Boris Yeltsin 1996",
+      "China Russia summit 1996",
+      "Yeltsin Beijing visit 1996"
+    ]
+  },
+  "a5_24": {
+    "name": "上海五国与上合组织",
+    "queries": [
+      "Shanghai Cooperation Organisation summit 2001",
+      "Shanghai Five leaders summit",
+      "SCO founding Shanghai 2001"
+    ]
+  },
+  "a5_25": {
+    "name": "中韩建交",
+    "queries": [
+      "China South Korea diplomatic relations 1992",
+      "Roh Tae-woo China visit 1992",
+      "Seoul Beijing 1992"
+    ]
+  },
+  "a5_26": {
+    "name": "朝鲜半岛核危机",
+    "queries": [
+      "Yongbyon nuclear facility North Korea",
+      "Jimmy Carter Pyongyang 1994",
+      "North Korea nuclear crisis 1994"
+    ]
+  },
+  "a5_27": {
+    "name": "金日成逝世",
+    "queries": [
+      "Kim Il Sung funeral 1994",
+      "Pyongyang mourning Kim Il Sung 1994",
+      "Kim Il Sung 1994"
+    ]
+  },
+  "a5_28": {
+    "name": "朝鲜苦难行军",
+    "queries": [
+      "North Korea famine 1990s",
+      "Food aid North Korea 1997",
+      "World Food Programme North Korea"
+    ]
+  },
+  "a5_29": {
+    "name": "新加坡苏州工业园",
+    "queries": [
+      "Suzhou Industrial Park",
+      "Lee Kuan Yew Suzhou",
+      "Suzhou construction 1990s"
+    ]
+  },
+  "a5_30": {
+    "name": "东盟对话伙伴",
+    "queries": [
+      "ASEAN summit 1996",
+      "China ASEAN meeting 1990s",
+      "ASEAN foreign ministers 1996"
+    ]
+  },
+  "a5_31": {
+    "name": "南海美济礁",
+    "queries": [
+      "Mischief Reef structures",
+      "Spratly Islands 1995",
+      "South China Sea reef 1995"
+    ]
+  },
+  "a5_32": {
+    "name": "三峡工程上马",
+    "queries": [
+      "Three Gorges Dam construction",
+      "Yangtze river closure ceremony 1997",
+      "Three Gorges construction site 1990s"
+    ]
+  },
+  "a5_33": {
+    "name": "西部大开发",
+    "queries": [
+      "Western China development construction 2000",
+      "Xinjiang infrastructure construction 2000",
+      "Lanzhou 1990s"
+    ]
+  },
+  "a5_34": {
+    "name": "九八抗洪",
+    "queries": [
+      "1998 Yangtze River floods",
+      "PLA soldiers flood fighting 1998 sandbags",
+      "China floods 1998 rescue"
+    ]
+  },
+  "a5_35": {
+    "name": "北京申奥失败",
+    "queries": [
+      "IOC session Monte Carlo 1993",
+      "Beijing Olympic bid 1993",
+      "Sydney 2000 announcement 1993"
+    ]
+  },
+  "a5_36": {
+    "name": "互联网进入中国",
+    "queries": [
+      "Internet cafe China 1990s",
+      "Chinese computer users 1990s",
+      "Zhongguancun Beijing 1990s"
+    ]
+  },
+  "a5_37": {
+    "name": "科教兴国与211工程",
+    "queries": [
+      "Chinese university campus 1990s",
+      "Tsinghua University students 1990s",
+      "Chinese classroom 1990s"
+    ]
+  },
+  "a5_38": {
+    "name": "神舟一号",
+    "queries": [
+      "Shenzhou 1 launch 1999",
+      "Long March 2F rocket Jiuquan",
+      "Shenzhou spacecraft"
+    ]
+  },
+  "a5_39": {
+    "name": "欧元区与中欧关系",
+    "queries": [
+      "Euro launch 1999 Frankfurt",
+      "European Central Bank 1999",
+      "China EU summit 1998"
+    ]
+  },
+  "a5_40": {
+    "name": "英国：平稳过渡合作",
+    "queries": [
+      "Chris Patten Hong Kong governor",
+      "Hong Kong Government House 1996",
+      "Hong Kong 1996 street scene"
+    ]
+  },
+  "a5_41": {
+    "name": "日本首相访华与历史问题",
+    "queries": [
+      "Ryutaro Hashimoto China visit 1997",
+      "Japan China summit 1997 Beijing",
+      "Hashimoto Li Peng 1997"
+    ]
+  },
+  "a5_42": {
+    "name": "北京申奥成功",
+    "queries": [
+      "Beijing 2008 Olympic bid celebration 2001",
+      "IOC Moscow 2001 Beijing announcement",
+      "Tiananmen celebration July 2001"
+    ]
+  }
+}

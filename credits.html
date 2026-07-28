@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片来源与授权 · 东方棋局</title>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; padding:34px 20px 60px; background:#17110b; color:#d5c5a0;
+    font-family:'Noto Serif SC','Songti SC',serif; line-height:1.8; }
+  .wrap { max-width:960px; margin:0 auto; }
+  h1 { font-family:'Ma Shan Zheng',serif; font-size:40px; color:#f3e6c8; margin:0 0 6px;
+    text-shadow:0 3px 0 #7a1216; }
+  .sub { color:#c9a227; letter-spacing:.25em; font-size:13px; margin-bottom:20px; }
+  p { font-size:14.5px; }
+  a { color:#dcbf6a; }
+  .stat { display:flex; gap:24px; flex-wrap:wrap; margin:18px 0 24px; }
+  .stat div { background:rgba(201,162,39,.1); border:1px solid rgba(201,162,39,.3); padding:8px 16px; font-size:14px; }
+  .stat b { color:#c9a227; font-size:21px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin-top:14px; }
+  th { background:rgba(163,31,36,.35); color:#f3e6c8; padding:9px 8px; text-align:left;
+    letter-spacing:.12em; font-weight:400; position:sticky; top:0; }
+  td { padding:7px 8px; border-bottom:1px solid rgba(201,162,39,.15); vertical-align:top; }
+  tr:hover td { background:rgba(201,162,39,.07); }
+  .lic { color:#9fd89f; white-space:nowrap; }
+  .lic.gen { color:#dcbf6a; }
+  .back { display:inline-block; margin-top:26px; padding:11px 26px; background:linear-gradient(180deg,#a31f24,#7a1216);
+    color:#f6e8c8; text-decoration:none; letter-spacing:.3em; border:2px solid rgba(246,232,200,.35); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>图片来源与授权</h1>
+  <div class="sub">IMAGE CREDITS &amp; LICENSES</div>
+  <p>本游戏卡面的历史照片来自 <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">维基共享资源（Wikimedia Commons）</a>，
+  仅采用公有领域（Public Domain）与知识共享署名类（CC BY / CC BY-SA）等自由许可的图像；
+  少量无法检索到合适史料照片的卡牌，采用 AI 生成的做旧风格示意图并已标注。
+  幕间海报与结局插画为本项目使用 Nano Banana Pro 生成的原创宣传画风作品。</p>
+  <p>若您是某张图片的权利人并认为此处使用不当，请通过
+  <a href="https://github.com/fengjh97/eastern-gambit/issues" target="_blank" rel="noopener">GitHub Issues</a> 告知，我们会立即移除或更换。</p>
+  <div class="stat" id="stats"></div>
+  <table id="tbl"><thead><tr><th>卡牌</th><th>图片文件</th><th>许可</th><th>作者/来源</th></tr></thead><tbody></tbody></table>
+  <a class="back" href="index.html">返 回 游 戏</a>
+</div>
+<script>
+fetch('assets/photos/CREDITS.json').then(r => r.json()).then(d => {
+  const rows = Object.entries(d).sort((a, b) => a[0].localeCompare(b[0]));
+  const tb = document.querySelector('#tbl tbody');
+  let commons = 0, gen = 0;
+  rows.forEach(([id, c]) => {
+    const isGen = c.license === 'Generated';
+    isGen ? gen++ : commons++;
+    const tr = document.createElement('tr');
+    const title = (c.title || '').replace(/^File:/, '');
+    tr.innerHTML = `<td>${c.name || id}</td>
+      <td>${c.source ? `<a href="${c.source}" target="_blank" rel="noopener">${title}</a>` : title}</td>
+      <td class="lic${isGen ? ' gen' : ''}">${c.license || '—'}</td>
+      <td>${c.artist || '—'}</td>`;
+    tb.append(tr);
+  });
+  document.getElementById('stats').innerHTML =
+    `<div>共享资源照片 <b>${commons}</b> 张</div><div>AI 生成补位 <b>${gen}</b> 张</div><div>合计 <b>${rows.length}</b> 张</div>`;
+}).catch(() => {
+  document.querySelector('#tbl tbody').innerHTML = '<tr><td colspan="4">授权清单加载失败。</td></tr>';
+});
+</script>
+</body>
+</html>
