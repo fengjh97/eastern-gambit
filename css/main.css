@@ -63,6 +63,7 @@ body {
 #curtain.closed .half { transform: scaleX(1); }
 
 /* ---------- 标题屏 ---------- */
+#scr-title.active { display: block; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 #scr-title {
   flex-direction: column; align-items: center; justify-content: flex-start;
   background: radial-gradient(ellipse at 50% 30%, #3a1210 0%, #1c0908 60%, #120605 100%);
@@ -84,7 +85,7 @@ body {
   border-radius: 50%; animation: raysSpin 90s linear infinite; pointer-events: none;
 }
 @keyframes raysSpin { to { transform: rotate(360deg); } }
-#title-main { position: relative; text-align: center; z-index: 2; margin: auto; max-height: 100%; overflow-y: auto; padding: 20px 0 calc(24px + env(safe-area-inset-bottom)); }
+#title-main { position: relative; text-align: center; z-index: 2; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 20px 14px calc(28px + env(safe-area-inset-bottom)); }
 #title-main .kicker {
   color: var(--gold-soft); letter-spacing: .9em; font-size: 15px; margin-bottom: 18px; text-indent: .9em;
   animation: riseIn 1s .2s ease both;
@@ -123,9 +124,9 @@ body {
 .btn:disabled { filter: grayscale(.8) brightness(.7); cursor: not-allowed; transform: none; }
 
 /* ---------- 幕间屏 ---------- */
-#scr-act {
-  flex-direction: column; align-items: center; justify-content: flex-start;
-  background: #14100a; overflow: hidden; text-align: center;
+#scr-act { background: #14100a; text-align: center; }
+#scr-act.active {
+  display: block; overflow-y: auto; -webkit-overflow-scrolling: touch;
 }
 #act-poster {
   position: absolute; inset: 0; background-size: cover; background-position: center;
@@ -135,9 +136,9 @@ body {
 @keyframes posterIn { from { opacity: 0; transform: scale(1.12); } to { opacity: .55; transform: scale(1); } }
 #scr-act::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,10,6,.5), rgba(14,9,5,.88)); z-index: 1; }
 #act-content {
-  position: relative; z-index: 2; max-width: 780px; width: 100%;
-  margin: auto; max-height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch;
-  padding: 26px 30px calc(28px + env(safe-area-inset-bottom));
+  position: relative; z-index: 2; max-width: 780px; margin: 0 auto;
+  min-height: 100%; display: flex; flex-direction: column; justify-content: center;
+  padding: 26px 30px calc(34px + env(safe-area-inset-bottom));
 }
 #act-num {
   font-family: 'ZCOOL QingKe HuangYou', serif; color: var(--gold); font-size: 20px; letter-spacing: .6em; text-indent: .6em;
@@ -430,7 +431,8 @@ body {
 .country-grid .ap-item { text-align: center; }
 
 /* ---------- 幕末屏 ---------- */
-#scr-finale { flex-direction: column; background: #0d0a06; overflow: hidden; }
+#scr-finale { background: #0d0a06; }
+#scr-finale.active { display: block; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .letterbox { pointer-events: none; }
 #finale-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .4; filter: sepia(.5) brightness(.7); animation: kenburns 30s ease-in-out infinite alternate; }
 .letterbox { position: absolute; left: 0; right: 0; height: 90px; background: #000; z-index: 3; }
@@ -439,8 +441,8 @@ body {
 @keyframes boxDown { to { transform: none; } }
 @keyframes boxUp { to { transform: none; } }
 #finale-content {
-  position: relative; z-index: 2; margin: auto; max-width: 760px; width: 100%;
-  max-height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  position: relative; z-index: 2; margin: 0 auto; max-width: 760px;
+  min-height: 100%; display: flex; flex-direction: column; justify-content: center;
   padding: 100px 30px calc(60px + env(safe-area-inset-bottom)); text-align: center;
 }
 #finale-content .f-kicker { color: var(--red); letter-spacing: .5em; font-size: 14px; margin-bottom: 12px; }
