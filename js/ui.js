@@ -130,9 +130,11 @@
         next.style.marginTop = '16px';
         next.onclick = () => { if (r.done) curtain(enterBoard); else renderTurnZeroStep(); };
         tz.append(next);
+        setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
       }, 1150);
     };
     tz.append(btn);
+    setTimeout(() => btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 200);
   }
 
   // ---------- 主板面 ----------
@@ -648,6 +650,7 @@
         b.onclick = () => resolveFinaleChoice(idx);
         box.append(b);
       });
+      setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 200);
     });
   }
 
@@ -683,6 +686,7 @@
       else filmCard(Engine.state.act, renderActIntro);
     };
     panel.append(btn);
+    setTimeout(() => btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 200);
   }
 
   // ---------- 结局 ----------
@@ -734,5 +738,5 @@
     document.addEventListener('pointerdown', () => { Music.setEnabled(Music.enabled); }, { once: true });
   }
 
-  window.UI = { renderTitle, bind, _debugEnterBoard: enterBoard, _debugFinale: renderFinale, _debugEnding: renderEnding };
+  window.UI = { renderTitle, bind, _debugEnterBoard: enterBoard, _debugFinale: renderFinale, _debugEnding: renderEnding, _debugActIntro: renderActIntro };
 })();

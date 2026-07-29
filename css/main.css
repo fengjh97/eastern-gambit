@@ -64,7 +64,7 @@ body {
 
 /* ---------- 标题屏 ---------- */
 #scr-title {
-  flex-direction: column; align-items: center; justify-content: center;
+  flex-direction: column; align-items: center; justify-content: flex-start;
   background: radial-gradient(ellipse at 50% 30%, #3a1210 0%, #1c0908 60%, #120605 100%);
   overflow: hidden;
 }
@@ -84,7 +84,7 @@ body {
   border-radius: 50%; animation: raysSpin 90s linear infinite; pointer-events: none;
 }
 @keyframes raysSpin { to { transform: rotate(360deg); } }
-#title-main { position: relative; text-align: center; z-index: 2; }
+#title-main { position: relative; text-align: center; z-index: 2; margin: auto; max-height: 100%; overflow-y: auto; padding: 20px 0 calc(24px + env(safe-area-inset-bottom)); }
 #title-main .kicker {
   color: var(--gold-soft); letter-spacing: .9em; font-size: 15px; margin-bottom: 18px; text-indent: .9em;
   animation: riseIn 1s .2s ease both;
@@ -124,7 +124,7 @@ body {
 
 /* ---------- 幕间屏 ---------- */
 #scr-act {
-  flex-direction: column; align-items: center; justify-content: center;
+  flex-direction: column; align-items: center; justify-content: flex-start;
   background: #14100a; overflow: hidden; text-align: center;
 }
 #act-poster {
@@ -134,7 +134,11 @@ body {
 }
 @keyframes posterIn { from { opacity: 0; transform: scale(1.12); } to { opacity: .55; transform: scale(1); } }
 #scr-act::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,10,6,.5), rgba(14,9,5,.88)); z-index: 1; }
-#act-content { position: relative; z-index: 2; max-width: 780px; padding: 0 30px; }
+#act-content {
+  position: relative; z-index: 2; max-width: 780px; width: 100%;
+  margin: auto; max-height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 26px 30px calc(28px + env(safe-area-inset-bottom));
+}
 #act-num {
   font-family: 'ZCOOL QingKe HuangYou', serif; color: var(--gold); font-size: 20px; letter-spacing: .6em; text-indent: .6em;
   animation: riseIn .8s .5s ease both;
@@ -427,13 +431,18 @@ body {
 
 /* ---------- 幕末屏 ---------- */
 #scr-finale { flex-direction: column; background: #0d0a06; overflow: hidden; }
+.letterbox { pointer-events: none; }
 #finale-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .4; filter: sepia(.5) brightness(.7); animation: kenburns 30s ease-in-out infinite alternate; }
 .letterbox { position: absolute; left: 0; right: 0; height: 90px; background: #000; z-index: 3; }
 .letterbox.top { top: 0; transform: translateY(-100%); animation: boxDown 1s .2s ease both; }
 .letterbox.bottom { bottom: 0; transform: translateY(100%); animation: boxUp 1s .2s ease both; }
 @keyframes boxDown { to { transform: none; } }
 @keyframes boxUp { to { transform: none; } }
-#finale-content { position: relative; z-index: 2; margin: auto; max-width: 760px; padding: 100px 30px; text-align: center; }
+#finale-content {
+  position: relative; z-index: 2; margin: auto; max-width: 760px; width: 100%;
+  max-height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 100px 30px calc(60px + env(safe-area-inset-bottom)); text-align: center;
+}
 #finale-content .f-kicker { color: var(--red); letter-spacing: .5em; font-size: 14px; margin-bottom: 12px; }
 #finale-content h2 { font-family: 'Ma Shan Zheng', serif; font-size: 54px; color: #f3e6c8; text-shadow: 0 4px 0 var(--red-deep); margin-bottom: 20px; }
 #finale-desc { color: #d5c5a0; font-size: 16px; line-height: 2.1; text-align: justify; margin-bottom: 26px; min-height: 120px; }

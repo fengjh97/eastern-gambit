@@ -16,6 +16,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     return;
   }
+  if (h === '#autoact') {
+    Engine.newGame();
+    UI._debugActIntro();
+    setTimeout(() => { const b = [...document.querySelectorAll('#tz-area .btn')].find(x => x.textContent.includes('掷')); b && b.click(); }, 2500);
+    return;
+  }
   if (h === '#autowire') {
     Engine.newGame();
     while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
