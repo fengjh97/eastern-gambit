@@ -516,23 +516,26 @@ body {
 
 @media (max-width: 900px) {
   button, .card { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-  #board-main { grid-template-columns: 1fr; overflow-y: auto; gap: 10px; padding: 10px 12px 4px; }
-  /* 国力放最上面两排四宫格 */
-  #res-panel { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #board-main { grid-template-columns: 1fr; overflow-y: auto; gap: 8px; padding: 8px 10px 4px; }
+  /* 国力：一条纤薄状态带 */
+  #res-panel { order: -1; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; }
   #res-panel .panel-title { display: none; }
-  .res-box { padding: 8px 10px; min-width: 0; }
-  .res-top { margin-bottom: 5px; }
-  .res-name { font-size: 12px; letter-spacing: .1em; white-space: nowrap; }
-  .res-num { font-size: 22px; }
-  /* 邦交双列紧凑 */
-  #rel-panel { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 6px 8px; overflow: visible; }
-  #rel-panel .panel-title { grid-column: 1 / -1; }
-  .rel-row { grid-template-columns: 46px minmax(0,1fr) 24px; padding: 5px 8px; margin-bottom: 0; min-width: 0; }
-  .rel-name { font-size: 12px; letter-spacing: 0; overflow: hidden; }
-  .rel-val { font-size: 14px; }
-  #event-log { min-height: 130px; font-size: 13px; }
-  #hand-zone { height: 216px; }
-  .card { width: 132px; height: 190px; }
+  .res-box { padding: 5px 8px 6px; min-width: 0; }
+  .res-top { margin-bottom: 2px; display: block; text-align: center; }
+  .res-name { font-size: 10px; letter-spacing: .05em; white-space: nowrap; display: block; opacity: .8; }
+  .res-num { font-size: 19px; display: block; line-height: 1.15; }
+  .res-bar { height: 4px; }
+  /* 邦交地图：通栏出血成为主角 */
+  #rel-panel { margin: 0 -10px; overflow: visible; }
+  #rel-panel .panel-title { font-size: 11px; padding: 3px 0 5px; }
+  #rel-map { border-left: none; border-right: none; }
+  .map-badge { min-width: 48px; padding: 4px 7px 3px; border-radius: 7px; }
+  .mb-name { font-size: 12.5px; }
+  .mb-val { font-size: 16px; }
+  .map-hint { display: block; }
+  #event-log { min-height: 0; max-height: 108px; font-size: 12.5px; }
+  #hand-zone { height: 224px; }
+  .card { width: 140px; height: 200px; }
   .letterbox { height: 34px; }
   #board-header { flex-wrap: wrap; padding: calc(6px + env(safe-area-inset-top)) 12px 6px; gap: 6px 10px; }
   #board-header .logo { font-size: 17px; }
@@ -806,3 +809,35 @@ body {
   .trump-card .tc-img { max-height: 110px; aspect-ratio: 16/7; }
   #btn-trump { order: 4; }
 }
+
+
+/* ==================== 全屏地图弹层 ==================== */
+.map-hint {
+  display: none; position: absolute; right: 6px; bottom: 6px; z-index: 3;
+  background: rgba(24,16,9,.75); color: var(--gold-soft); font-size: 10px;
+  padding: 2px 8px; border: 1px solid rgba(201,162,39,.4); border-radius: 3px; pointer-events: none;
+}
+#map-modal {
+  position: fixed; inset: 0; z-index: 280; background: rgba(10,6,3,.95);
+  display: flex; flex-direction: column; padding: calc(10px + env(safe-area-inset-top)) 0 calc(10px + env(safe-area-inset-bottom));
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+#map-modal .mm-title { text-align: center; color: var(--gold-soft); letter-spacing: .4em; text-indent: .4em; font-size: 15px; padding: 4px 0 10px; }
+#map-modal .mm-map {
+  position: relative; width: 100%; aspect-ratio: 4/3; background-size: cover; background-position: center;
+  border-top: 1px solid rgba(201,162,39,.4); border-bottom: 1px solid rgba(201,162,39,.4);
+  filter: sepia(.12);
+}
+#map-modal .map-badge { min-width: 56px; padding: 5px 9px 4px; }
+#map-modal .mb-name { font-size: 14px; }
+#map-modal .mb-val { font-size: 19px; }
+#map-modal .map-china { font-size: 34px; }
+#map-modal .mm-list { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 12px 12px 6px; }
+#map-modal .mm-item {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(233,221,194,.08); border: 1px solid rgba(201,162,39,.25); padding: 7px 10px;
+  color: #e6d7b4; font-size: 13px;
+}
+#map-modal .mm-item b { font-family: 'ZCOOL QingKe HuangYou', serif; font-size: 17px; font-weight: 400; }
+#map-modal .mm-close { margin: 12px auto 0; }
+@media (max-width: 900px) { #map-modal .mm-list { grid-template-columns: 1fr 1fr; } }

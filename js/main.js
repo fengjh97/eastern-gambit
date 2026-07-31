@@ -22,6 +22,13 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { const b = [...document.querySelectorAll('#tz-area .btn')].find(x => x.textContent.includes('掷')); b && b.click(); }, 2500);
     return;
   }
+  if (h === '#automap') {
+    Engine.newGame();
+    while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
+    UI._debugEnterBoard();
+    setTimeout(() => { const m = document.querySelector('#rel-map'); m && m.click(); }, 800);
+    return;
+  }
   if (h === '#autotrump') {
     Engine.newGame();
     while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();

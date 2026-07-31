@@ -213,8 +213,9 @@
     const st = Engine.state;
     const panel = $('#rel-panel');
     if (!panel._built) {
-      panel.innerHTML = '<div class="panel-title">邦交态势</div><div id="rel-map"><div class="map-china">★</div></div>';
+      panel.innerHTML = '<div class="panel-title">邦交态势</div><div id="rel-map"><div class="map-china">★</div><div class="map-hint">点击放大</div></div>';
       const map = panel.querySelector('#rel-map');
+      map.addEventListener('click', e => { if (e.target === map || e.target.classList.contains('map-china')) openMapModal(); });
       for (const k of Engine.REL_KEYS) {
         const b = el('div', 'map-badge'); b.id = 'rel-' + k;
         b.style.left = MAP_POS[k][0] + '%';
@@ -537,6 +538,47 @@
     ok.onclick = openApPanel;
     wrap.append(ok);
     openModal(wrap);
+  }
+
+  // ---------- 全屏地图 ----------
+  function openMapModal() {
+    const st = Engine.state;
+    const names = Engine.relNames();
+    const modal = el('div'); modal.id = 'map-modal';
+    modal.innerHTML = '<div class="mm-title">邦 交 态 势</div>';
+    const map = el('div', 'mm-map');
+    bgOrGradient(map, 'map_asia');
+    map.append(el('div', 'map-china', '★'));
+    for (const k of Engine.REL_KEYS) {
+      const v = st.rel[k];
+      const b = el('div', 'map-badge');
+      b.style.left = MAP_POS[k][0] + '%';
+      b.style.top = MAP_POS[k][1] + '%';
+      const col = v >= 5 ? '#e8c34a' : v <= -6 ? '#ff5b4d' : v > 0 ? '#d9b872' : v < 0 ? '#c96a5a' : '#b8a888';
+      b.style.borderColor = col;
+      b.style.boxShadow = '0 0 ' + (6 + Math.abs(v)) + 'px ' + col + (Math.abs(v) >= 6 ? 'cc' : '66');
+      b.innerHTML = '<div class="mb-name">' + names[k] + '</div><div class="rel-val mb-val" style="color:' + col + '">' + (v > 0 ? '+' + v : v) + '</div>';
+      b.onclick = () => {
+        if (Engine.state.phase === 'play' && Engine.state.ap >= 2) {
+          Engine.spendAP('diplo', k); Audio2.play('stamp');
+          modal.remove(); renderBoard(); openMapModal();
+        } else toast(Engine.state.ap < 2 ? '行动点不足（外交攻势需2点）' : '');
+      };
+      map.append(b);
+    }
+    modal.append(map);
+    const list = el('div', 'mm-list');
+    for (const k of Engine.REL_KEYS) {
+      const v = st.rel[k];
+      const col = v >= 5 ? '#e8c34a' : v <= -6 ? '#ff5b4d' : v > 0 ? '#d9b872' : v < 0 ? '#c96a5a' : '#b8a888';
+      list.append(el('div', 'mm-item', '<span>' + names[k] + '</span><b style="color:' + col + '">' + (v > 0 ? '+' + v : v) + '</b>'));
+    }
+    modal.append(list);
+    const close = el('button', 'btn mm-close', '收 起');
+    close.onclick = () => modal.remove();
+    modal.append(close);
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    document.body.append(modal);
   }
 
   // ---------- 历史王牌 ----------
