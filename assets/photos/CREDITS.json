@@ -163,12 +163,11 @@
  },
  "a1_31": {
   "name": "钱学森归国",
-  "title": "File:Qian Xuesen Signature.png",
-  "license": "Public domain",
-  "artist": "SSYoung",
-  "source": "https://commons.wikimedia.org/wiki/File:Qian_Xuesen_Signature.png",
-  "query": "Qian Xuesen",
-  "photoYear": 1992
+  "title": "File:Hsue-shen Tsien with his family onboard SS President Cleveland.jpg",
+  "license": "CC BY 4.0",
+  "artist": "Los Angeles Times",
+  "source": "https://commons.wikimedia.org/wiki/File:Hsue-shen_Tsien_with_his_family_onboard_SS_President_Cleveland.jpg",
+  "query": "Hsue-shen Tsien SS President Cleveland"
  },
  "a1_32": {
   "name": "人民空军初建",
@@ -397,12 +396,11 @@
  },
  "a2_29": {
   "name": "氢弹预研",
-  "title": "File:王育敏（第11屆立法委員）.jpg",
-  "license": "Attribution",
-  "artist": "中華民國立法院",
-  "source": "https://commons.wikimedia.org/wiki/File:%E7%8E%8B%E8%82%B2%E6%95%8F%EF%BC%88%E7%AC%AC11%E5%B1%86%E7%AB%8B%E6%B3%95%E5%A7%94%E5%93%A1%EF%BC%89.jpg",
-  "query": "Yu Min physicist",
-  "photoYear": null
+  "title": "AI 生成的时代风格示意图（理论组攻关场景）",
+  "license": "Generated",
+  "artist": "Nano Banana Pro (本项目生成)",
+  "source": "",
+  "query": "1960s Chinese theoretical physicists blackboard"
  },
  "a2_31": {
   "name": "LT贸易备忘录",

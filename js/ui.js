@@ -154,6 +154,13 @@
       stars.append(s);
     }
     $('#ap-chip').innerHTML = '行动点 <b>' + st.ap + '</b>';
+    const tb = $('#btn-trump');
+    if (tb) {
+      const ready = Engine.trumpInfo().filter(t => t.state === 'ready').length;
+      tb.innerHTML = st.trumpHot ? '王 牌 <span class="trump-hot">余波' + st.trumpHot.turns + '</span>'
+        : '王 牌' + (ready ? ' <span class="trump-n">' + ready + '</span>' : '');
+      tb.classList.toggle('has-ready', ready > 0 && !st.trumpHot);
+    }
     renderAgendaChip();
     renderRes(); renderRel(); renderLog();
     $('#btn-ap').disabled = st.ap <= 0;
@@ -197,27 +204,50 @@
     }
   }
 
+  // 亚太作战地图上的九国位置（百分比坐标，随底图校准）
+  const MAP_POS = {
+    ussr: [55, 15], us: [91, 53], uk: [8, 11], eu: [7, 25],
+    jp: [81, 55], sk: [73, 47], nk: [66, 36], tw: [63.5, 63], sea: [56, 76],
+  };
   function renderRel() {
     const st = Engine.state;
     const panel = $('#rel-panel');
     if (!panel._built) {
-      panel.innerHTML = '<div class="panel-title">邦交</div>';
+      panel.innerHTML = '<div class="panel-title">邦交态势</div><div id="rel-map"><div class="map-china">★</div></div>';
+      const map = panel.querySelector('#rel-map');
       for (const k of Engine.REL_KEYS) {
-        const row = el('div', 'rel-row'); row.id = 'rel-' + k;
-        row.innerHTML = `<span class="rel-name"></span><div class="rel-track"><div class="rel-marker"></div></div><span class="rel-val"></span>`;
-        panel.append(row);
+        const b = el('div', 'map-badge'); b.id = 'rel-' + k;
+        b.style.left = MAP_POS[k][0] + '%';
+        b.style.top = MAP_POS[k][1] + '%';
+        b.innerHTML = '<div class="mb-name"></div><div class="rel-val mb-val"></div>';
+        b.onclick = () => {
+          if (Engine.state.phase !== 'play') return;
+          if (Engine.state.ap >= 2) {
+            Engine.spendAP('diplo', k); Audio2.play('stamp'); renderBoard();
+            toast(Engine.relNames()[k] + ' 关系 +1（外交攻势 -2AP）');
+          } else toast('行动点不足（外交攻势需2点）');
+        };
+        map.append(b);
       }
+      bgOrGradient(map, 'map_asia');
       panel._built = true;
     }
     const names = Engine.relNames();
     for (const k of Engine.REL_KEYS) {
-      const row = $('#rel-' + k);
-      row.querySelector('.rel-name').textContent = names[k];
+      const b = $('#rel-' + k);
       const v = st.rel[k];
-      row.querySelector('.rel-marker').style.left = ((v + 10) / 20 * 100) + '%';
-      const vs = row.querySelector('.rel-val');
+      b.querySelector('.mb-name').textContent = names[k];
+      const vs = b.querySelector('.mb-val');
       vs.textContent = v > 0 ? '+' + v : v;
-      vs.className = 'rel-val ' + (v > 0 ? 'pos' : v < 0 ? 'neg' : 'zero');
+      // 颜色：-10 深红 → 0 灰褐 → +10 金
+      const t = (v + 10) / 20;
+      const hue = t < 0.5 ? 0 : 45;
+      const col = v >= 5 ? '#e8c34a' : v <= -6 ? '#ff5b4d' : v > 0 ? '#d9b872' : v < 0 ? '#c96a5a' : '#b8a888';
+      b.style.borderColor = col;
+      b.style.boxShadow = '0 0 ' + (6 + Math.abs(v)) + 'px ' + col + (Math.abs(v) >= 6 ? 'cc' : '66');
+      vs.style.color = col;
+      b.classList.toggle('ally', v >= 5);
+      b.classList.toggle('enemy', v <= -6);
     }
   }
 
@@ -509,6 +539,74 @@
     openModal(wrap);
   }
 
+  // ---------- 历史王牌 ----------
+  function openTrumpPanel() {
+    const st = Engine.state;
+    const wrap = el('div');
+    wrap.append(el('div', 'd-kicker', '历史王牌 · 每幕限打一张 · 打出必付代价'));
+    wrap.append(el('h2', null, '手中的大国牌'));
+    if (st.trumpHot) wrap.append(el('div', 'd-desc', '<b style="color:var(--red)">⚠ 王牌余波未平：' +
+      (st.trumpHot.foe === 'both' ? '苏美双方' : (st.trumpHot.foe === 'ussr' ? '莫斯科' : '华盛顿')) +
+      '仍在报复，还剩 ' + st.trumpHot.turns + ' 回合。</b>'));
+    const row = el('div', 'trump-row');
+    Engine.trumpInfo().forEach(t => {
+      const c = el('div', 'trump-card st-' + t.state);
+      c.innerHTML = `<div class="tc-img"></div>
+        <div class="tc-name">${t.name}</div><div class="tc-sub">${t.sub}</div>
+        <div class="tc-era">${t.era}</div>
+        <div class="tc-gain">✚ ${t.gain.desc}</div>
+        <div class="tc-cost">✖ ${t.cost.desc}</div>
+        <div class="tc-state">${t.state === 'locked' ? '🔒 ' + (t.unlockDesc || '未解锁') :
+          t.state === 'dead' ? t.deadText : t.state === 'usedAct' ? '本幕王牌名额已用' : ''}</div>`;
+      bgOrGradient(c.querySelector('.tc-img'), t.img);
+      if (t.state === 'ready') {
+        const b = el('button', 'btn', '打 出');
+        b.onclick = () => confirmTrump(t.id);
+        c.append(b);
+      }
+      row.append(c);
+    });
+    wrap.append(row);
+    const back = el('button', 'btn ghost', '收 起'); back.style.marginTop = '14px';
+    back.onclick = closeModal;
+    wrap.append(back);
+    openModal(wrap);
+  }
+
+  function confirmTrump(id) {
+    const t = window.TRUMPS[id];
+    const wrap = el('div');
+    wrap.append(el('div', 'd-kicker', '王牌 · 落子无悔'));
+    wrap.append(el('h2', null, t.name + '<span class="d-year">' + t.sub + '</span>'));
+    wrap.append(el('div', 'd-flavor', t.era));
+    wrap.append(el('div', 'd-desc', '<b style="color:var(--good)">收益：</b>' + t.gain.desc));
+    wrap.append(el('div', 'd-desc', '<b style="color:var(--red)">代价：</b>' + t.cost.desc));
+    wrap.append(el('div', 'd-desc', '<b style="color:var(--red)">余波：</b>打出后两回合内，' +
+      (t.foe === 'both' ? '苏美双方' : (t.foe === 'ussr' ? '莫斯科' : '华盛顿')) + '必然报复、议程加速。'));
+    const acts = el('div', 'd-actions');
+    const go = el('button', 'btn', '落 子');
+    go.onclick = () => {
+      const r = Engine.playTrump(id);
+      if (!r) { closeModal(); return; }
+      Audio2.play('gong'); shake(); alertFlash();
+      const res = el('div');
+      res.append(el('div', 'd-kicker', '王牌落定'));
+      res.append(el('h2', null, r.def.name + '·' + r.def.sub));
+      res.append(el('div', 'result-texts', r.def.aftermath));
+      res.append(deltaChips(r.gainDeltas.concat(r.costDeltas)));
+      const ok = el('button', 'btn', '继 续'); ok.style.marginTop = '16px';
+      ok.onclick = () => { closeModal(); checkGameOverOrContinue(); };
+      res.append(ok);
+      openModal(res);
+      renderBoard();
+    };
+    const cancel = el('button', 'btn ghost', '再想想');
+    cancel.onclick = openTrumpPanel;
+    acts.append(go, cancel);
+    wrap.append(acts);
+    openModal(wrap);
+  }
+
   function openCountryPick() {
     const st = Engine.state;
     const wrap = el('div');
@@ -731,6 +829,7 @@
     });
     $('#btn-end-turn').onclick = endTurn;
     $('#btn-ap').onclick = openApPanel;
+    $('#btn-trump').onclick = openTrumpPanel;
     $('#btn-restart-ending').onclick = () => curtain(() => { Engine.newGame(); renderActIntro(); });
     $('#btn-menu-ending').onclick = () => curtain(renderTitle);
     $('#mute-btn').onclick = () => { const on = Audio2.toggle(); Music.setEnabled(on); $('#mute-btn').textContent = on ? '♪' : '✕'; };

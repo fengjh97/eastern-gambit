@@ -115,8 +115,8 @@ window.ACT_DATA[1] = {
     { id: 'a1_15', name: '万隆会议', year: 1955, type: 'event', ap: 3, tag: 'sea', img: 'diplomacy', once: true,
       flavor: '"求同存异"四个字，让二十九个亚非国家听见了中国。',
       event: { desc: '亚非舞台的高光时刻。', roll: { ge: 2,
-        ok: { desc: '会议大获成功，第三世界向北京投来目光。', fx: { res: { DIP: 6 }, rel: { sea: 3 } } },
-        bad: { desc: '暗流与猜忌干扰议程，成果打了折扣。', fx: { res: { DIP: 3 }, rel: { sea: 1 } } } } } },
+        ok: { desc: '会议大获成功，第三世界向北京投来目光。', fx: { res: { DIP: 6 }, rel: { sea: 3 }, flags: ['bandung'] } },
+        bad: { desc: '暗流与猜忌干扰议程，成果打了折扣。', fx: { res: { DIP: 3 }, rel: { sea: 1 }, flags: ['bandung'] } } } } },
 
     { id: 'a1_16', name: '克什米尔公主号事件', year: 1955, type: 'crisis', ap: 2, tag: 'tw', img: 'crisis', once: true,
       flavor: '一枚定时炸弹在包机上引爆，目标本是赴万隆的周恩来。',

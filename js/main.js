@@ -22,6 +22,14 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { const b = [...document.querySelectorAll('#tz-area .btn')].find(x => x.textContent.includes('掷')); b && b.click(); }, 2500);
     return;
   }
+  if (h === '#autotrump') {
+    Engine.newGame();
+    while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
+    Engine.state.flags.push('bandung', 'nixon_ok');
+    UI._debugEnterBoard();
+    setTimeout(() => document.querySelector('#btn-trump').click(), 600);
+    return;
+  }
   if (h === '#autowire') {
     Engine.newGame();
     while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();

@@ -48,6 +48,10 @@
 **情报刺探**：spendAP('spy', power)，2AP每幕一次，揭破后顶栏常驻显示破解状态。
 meets() 支持 {any:[...]}/{all:[...]} 嵌套。
 
+**历史王牌（js/data/trumps.js + engine.playTrump）**：sov（开局持有，split后dead）/third（bandung或un_seat解锁）/us（nixon_ok或kissinger解锁）。
+每幕限打一张（trumpActUsed）；打出应用 gain.fx+cost.fx 并设 trumpHot{foe,turns:2}——热期内对方每回合必然报复电报（hostile池）+议程线索必然泄露；
+sov 埋 yibiandao 旗标，act2 幕末决裂时追加 STB-3 ECO-3。邦交面板为地图版（MAP_POS 百分比坐标对应 assets/img/map_asia.jpg）。
+
 ## 结构：五幕 × 7 回合 = 35 回合
 
 | 幕 | 年代 | 主题 | 幕末大事结算 |

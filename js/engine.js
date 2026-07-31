@@ -129,6 +129,7 @@
       flags: [], deck: [], discard: [], removed: [], hand: [],
       playsLeft: 0, ap: 0, log: [], gameOver: null, endingShown: false,
       touched: {}, thresholdUsed: {}, agendas: null, spyUsed: false,
+      trumpActUsed: 0, trumpHot: null,
     };
     buildDeck();
     drawAgendas();
@@ -169,6 +170,36 @@
       counterDesc: a.revealed ? def.counterDesc : null,
       countered: a.revealed ? meets(def.counter).ok : null,
     };
+  }
+
+  // ---------- 历史王牌 ----------
+  function trumpState(id) {
+    const def = window.TRUMPS && window.TRUMPS[id];
+    if (!def) return null;
+    if (def.deadFlag && def.deadFlag.some(f => hasFlag(f))) return 'dead';
+    if (def.unlock && !meets(def.unlock).ok) return 'locked';
+    if (state.trumpActUsed === state.act) return 'usedAct';
+    return 'ready';
+  }
+
+  function trumpInfo() {
+    if (!window.TRUMPS) return [];
+    return Object.keys(window.TRUMPS).map(id => {
+      const def = window.TRUMPS[id];
+      return Object.assign({ state: trumpState(id) }, def);
+    });
+  }
+
+  function playTrump(id) {
+    const def = window.TRUMPS[id];
+    if (!def || trumpState(id) !== 'ready' || state.phase !== 'play') return null;
+    const gainDeltas = applyFx(def.gain.fx);
+    const costDeltas = applyFx(def.cost.fx);
+    state.trumpActUsed = state.act;
+    state.trumpHot = { foe: def.foe, turns: 2, name: def.name };
+    log('【王牌】打出「' + def.name + '·' + def.sub + '」！' + def.aftermath);
+    save();
+    return { def, gainDeltas, costDeltas };
   }
 
   function buildDeck() {
@@ -393,7 +424,20 @@
       pushWire('neutral', null, '国际观察', n.t, null);
     }
 
-    // ④ 议程暗示（未揭破的议程每回合漏一条线索）
+    // ③.5 王牌余波：牌落在对方手中，两回合内必然报复
+    if (state.trumpHot && state.trumpHot.turns > 0) {
+      const foes = state.trumpHot.foe === 'both' ? ['ussr', 'us'] : [state.trumpHot.foe];
+      for (const f of foes) {
+        const pool = R.hostile[f];
+        if (!pool) continue;
+        const item = pool[Math.floor(Math.random() * pool.length)];
+        pushWire('revenge', f, '王牌余波 · ' + names[f] + '的报复', item.t, item.fx);
+      }
+    }
+
+    // ④ 议程暗示（未揭破的议程每回合漏一条线索；王牌热期必然泄露）
+    const hotFoes = state.trumpHot && state.trumpHot.turns > 0
+      ? (state.trumpHot.foe === 'both' ? ['ussr', 'us'] : [state.trumpHot.foe]) : [];
     for (const power of ['ussr', 'us']) {
       const a = state.agendas && state.agendas[power];
       const def = agendaDef(power);
@@ -402,7 +446,7 @@
         const ok = meets(def.counter).ok;
         wires.push({ kind: 'agenda', src: srcOf(power), title: '战略议程 · ' + def.name + (ok ? '（已破解）' : '（未破解）'),
           text: (ok ? '✔ 破解条件已达成：' : '✖ 破解条件尚未达成：') + def.counterDesc, deltas: [] });
-      } else if (a.hintIdx < def.hints.length && Math.random() < 0.55) {
+      } else if (a.hintIdx < def.hints.length && (hotFoes.includes(power) || Math.random() < 0.55)) {
         wires.push({ kind: 'hint', src: srcOf(power), title: '情报简报 · 疑云', text: def.hints[a.hintIdx], deltas: [] });
         a.hintIdx++;
       }
@@ -439,6 +483,7 @@
     }
     // 博弈反应阶段：各国电报（阈值/连锁/行为表/议程线索）
     out.wires = reactionPhase();
+    if (state.trumpHot && --state.trumpHot.turns <= 0) state.trumpHot = null;
     if (state.gameOver) { save(); return out; }
 
     const meta = window.ACT_DATA[state.act].meta;
@@ -485,6 +530,13 @@
       result.deltas.push(...applyFx(out.fx));
     }
     log('【幕末】' + f.title + '：' + choice.label);
+
+    // 「一边倒」的延迟代价：决裂时绑得越深，摔得越重
+    if (state.act === 2 && hasFlag('yibiandao') && (hasFlag('split_total') || hasFlag('split_managed'))) {
+      result.texts.push('当年"一边倒"绑定的产业链此刻成了绞索：苏式设备停摆、图纸断供，决裂的创伤成倍加深。');
+      result.deltas.push(...applyFx({ res: { STB: -3, ECO: -3 } }));
+      log('【王牌反噬】一边倒的旧债在决裂时刻连本带利讨还。');
+    }
 
     if (state.gameOver) { save(); return result; }
 
@@ -535,5 +587,6 @@
     finaleChoices, resolveFinale, finalEnding,
     hasFlag, score, meets,
     agendaInfo, spyAvailable, reactionPhase,
+    trumpInfo, playTrump,
   };
 })();
