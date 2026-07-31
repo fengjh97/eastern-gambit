@@ -25,7 +25,7 @@ window.ACT_DATA[5] = {
     title: '入世谈判 2001', year: 2001, img: 'finale5',
     desc: '二〇〇一年十一月十日，多哈。从复关到入世，十五年长跑走到最后一夜：农业补贴、市场准入、特殊保障条款——木槌落下之前，签，还是不签？',
     choices: [
-      { label: '达成协议', desc: '接受谈成的一揽子条件，把中国经济押上世界的轨道。', requires: ['reform'], reqRel: { us: -3 }, reqRes: { ECO: 50 },
+      { label: '达成协议', desc: '接受谈成的一揽子条件，把中国经济押上世界的轨道。', requires: ['reform'], reqRel: { us: -3 }, reqRes: { ECO: 50, STB: 40 },
         roll: { ge: 2,
           ok: { desc: '木槌落下，掌声雷动。中国成为世贸组织第一百四十三个成员。', fx: { res: { ECO: 8, DIP: 6 }, rel: { us: 1, eu: 1, jp: 1 }, flags: ['wto'] } },
           bad: { desc: '最后关头被附加特殊保障等苛刻条款，权衡再三，仍然签字入世。', fx: { res: { ECO: 5, DIP: 4 }, flags: ['wto', 'wto_hard'] } } } },

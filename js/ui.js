@@ -223,10 +223,11 @@
         b.innerHTML = '<div class="mb-name"></div><div class="rel-val mb-val"></div>';
         b.onclick = () => {
           if (Engine.state.phase !== 'play') return;
-          if (Engine.state.ap >= 2) {
-            Engine.spendAP('diplo', k); Audio2.play('stamp'); renderBoard();
-            toast(Engine.relNames()[k] + ' 关系 +1（外交攻势 -2AP）');
-          } else toast('行动点不足（外交攻势需2点）');
+          if (Engine.state.ap < 2) { toast('行动点不足（外交攻势需2点）'); return; }
+          const r = Engine.spendAP('diplo', k);
+          if (r && r.capped) { toast('🔒 中美关系已到时代上限 ' + (r.cap > 0 ? '+' : '') + r.cap + '，需乒乓外交/尼克松访华等破冰'); return; }
+          Audio2.play('stamp'); renderBoard();
+          toast(Engine.relNames()[k] + ' 关系 +1（外交攻势 -2AP）');
         };
         map.append(b);
       }
@@ -353,6 +354,17 @@
     const cancel = el('button', 'btn ghost', '收回');
     cancel.onclick = closeModal;
     actions.append(evBtn, apBtn, cancel);
+    if (!st.mulliganUsed && c.type !== 'crisis') {
+      const mb = el('button', 'btn ghost', '换一张');
+      mb.title = '弃掉此牌抽一张新牌，每回合一次，不占行动次数';
+      mb.onclick = () => {
+        const r = Engine.mulligan(c.id);
+        Audio2.play('flip');
+        closeModal(); renderBoard(); renderHand(false);
+        if (r && r.drawn) toast('换到：「' + r.drawn.name + '」');
+      };
+      actions.append(mb);
+    }
     wrap.append(actions);
     if (!playable.ok) wrap.append(el('div', 'd-desc', '<span style="color:var(--bad);font-size:13px">事件不可用：' + playable.why + '</span>'));
     openModal(wrap);
@@ -659,8 +671,14 @@
     for (const k of Engine.REL_KEYS) {
       const b = el('button', 'ap-item');
       b.innerHTML = '<b>' + names[k] + '</b><p>' + (st.rel[k] > 0 ? '+' + st.rel[k] : st.rel[k]) + ' → ' + (Math.min(10, st.rel[k] + 1) > 0 ? '+' + Math.min(10, st.rel[k] + 1) : Math.min(10, st.rel[k] + 1)) + '</p>';
-      b.disabled = st.rel[k] >= 10;
-      b.onclick = () => { Engine.spendAP('diplo', k); Audio2.play('stamp'); renderBoard(); openApPanel(); };
+      const usCapped = k === 'us' && st.rel.us >= Engine.usCap();
+      b.disabled = st.rel[k] >= 10 || usCapped;
+      if (usCapped) b.innerHTML += '<p style="color:var(--bad)">🔒 时代上限 ' + (Engine.usCap() > 0 ? '+' : '') + Engine.usCap() + '，需破冰事件（乒乓外交/尼克松访华/建交）</p>';
+      b.onclick = () => {
+        const r = Engine.spendAP('diplo', k);
+        if (r && r.capped) { toast('中美关系已到时代上限，需要历史性破冰事件'); return; }
+        Audio2.play('stamp'); renderBoard(); openApPanel();
+      };
       grid.append(b);
     }
     wrap.append(grid);
@@ -852,7 +870,7 @@
     stats.append(yr);
     const sc = $('#ending-score');
     const score = e.score != null ? e.score : Engine.score();
-    sc.innerHTML = '史册评分 <b>0</b>';
+    sc.innerHTML = (e.grade ? '<div class="ending-grade">史册定评 · <b>' + e.grade.title + '</b><div class="eg-desc">' + e.grade.desc + '</div></div>' : '') + '史册评分 <b>0</b>';
     let cur = 0; const step = Math.max(1, Math.round(score / 60));
     const tm = setInterval(() => { cur = Math.min(score, cur + step); sc.querySelector('b').textContent = cur; if (cur >= score) clearInterval(tm); }, 24);
     Engine.clearSave();

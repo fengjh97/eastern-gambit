@@ -841,3 +841,8 @@ body {
 #map-modal .mm-item b { font-family: 'ZCOOL QingKe HuangYou', serif; font-size: 17px; font-weight: 400; }
 #map-modal .mm-close { margin: 12px auto 0; }
 @media (max-width: 900px) { #map-modal .mm-list { grid-template-columns: 1fr 1fr; } }
+
+/* 史册定评 */
+.ending-grade { margin-bottom: 10px; font-size: 16px; letter-spacing: .15em; color: #d5c5a0; }
+.ending-grade b { font-family: 'Ma Shan Zheng', serif; font-size: 30px; color: var(--gold); letter-spacing: .2em; margin-left: 6px; }
+.ending-grade .eg-desc { font-size: 13px; color: #b8a888; letter-spacing: .05em; margin-top: 4px; }

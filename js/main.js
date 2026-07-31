@@ -1,5 +1,5 @@
 // 入口
-const APP_VERSION = '8';
+const APP_VERSION = '9';
 // 自动更新：检测到新版本时用带参地址绕过HTML缓存强制刷新
 (function checkUpdate() {
   fetch('version.txt?_=' + Date.now(), { cache: 'no-store' })

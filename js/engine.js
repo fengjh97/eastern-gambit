@@ -17,6 +17,21 @@
     spy: { name: '情报刺探', cost: 2, desc: '窥破苏/美本幕战略议程' },
   };
 
+  // 前置旗标的中文名（锁定卡提示用）
+  const FLAG_NAMES = {
+    korea_war: '抗美援朝', no_korea: '半岛按兵不动', qian: '钱学森归国', bomb: '第一颗原子弹',
+    bandung: '万隆会议', daqing: '大庆油田', self_reliance: '自力更生', vietnam_aid: '援越抗美',
+    sov_threat: '苏联核威胁', pingpong: '乒乓外交', kissinger: '基辛格密访', nixon_ok: '尼克松访华',
+    un_seat: '恢复联合国席位', jp_normal: '中日建交', satellite: '东方红一号', hbomb_ready: '氢弹预研',
+    reform: '十一届三中全会', sez: '经济特区', us_normal: '中美建交', hk_deal: '中英联合声明',
+    hk_force: '强行收回香港', hk_window: '香港窗口', demob: '百万大裁军', viet_war: '对越自卫还击',
+    price_reform_ok: '价格闯关成功', south_tour: '南方谈话', russia_ties: '中俄建交',
+    soe_reform: '国企改革', sg_model: '新加坡经验', hk_return: '香港回归', baochan: '包产到户',
+    famine: '三年困难', wto: '加入世贸', four_mod: '四个现代化', gang_smashed: '粉碎四人帮',
+    deng_back: '邓小平复出', sino_sov_normal: '中苏关系正常化', sk_ties: '中韩建交',
+  };
+  const flagName = f => FLAG_NAMES[f] || f;
+
   const SAVE_KEY = 'eastern_gambit_save_v1';
 
   let state = null;
@@ -57,6 +72,8 @@
       const d = fx.rel[k]; if (!d) continue;
       const before = state.rel[k];
       state.rel[k] = clamp(before + d, -10, 10);
+      // 中美关系上行受时代天花板约束（已在天花板之上的不强降）
+      if (k === 'us' && d > 0) state.rel.us = Math.min(state.rel.us, Math.max(before, usCap()));
       if (state.touched) state.touched[k] = (state.touched[k] || 0) + (state.rel[k] - before);
       deltas.push({ type: 'rel', key: k, name: relNames()[k], delta: state.rel[k] - before, now: state.rel[k] });
     }
@@ -68,12 +85,21 @@
 
   function relNames() { return state && state.act >= 5 ? REL_NAMES_ACT5 : REL_NAMES; }
 
+  // 中美关系的历史天花板：没有破冰事件，关系怼不上去
+  function usCap() {
+    if (hasFlag('us_normal')) return 10;
+    if (hasFlag('nixon_ok')) return 5;
+    if (hasFlag('pingpong') || hasFlag('kissinger')) return 2;
+    if (state.act >= 4) return 2;   // 即便错过尼克松，八十年代也有有限缓和空间
+    return -2;
+  }
+
   // ---------- 条件 ----------
   function meets(obj) {
     if (!obj) return { ok: true };
     if (obj.any) return obj.any.some(o => meets(o).ok) ? { ok: true } : { ok: false, why: '条件未达成' };
     if (obj.all) return obj.all.every(o => meets(o).ok) ? { ok: true } : { ok: false, why: '条件未达成' };
-    if (obj.requires) for (const f of obj.requires) if (!hasFlag(f)) return { ok: false, why: '前置条件未达成' };
+    if (obj.requires) for (const f of obj.requires) if (!hasFlag(f)) return { ok: false, why: '需先达成「' + flagName(f) + '」' };
     if (obj.reqRel) for (const k of Object.keys(obj.reqRel)) {
       if (state.rel[k] < obj.reqRel[k]) return { ok: false, why: relNames()[k] + '关系不足（需≥' + obj.reqRel[k] + '）' };
     }
@@ -97,26 +123,32 @@
     const E = window.ENDINGS;
     const r = state.res, l = state.rel;
     const wto = hasFlag('wto');
-    let e;
-    if (wto && RES_KEYS.every(k => r[k] >= 60) && ['us', 'uk', 'eu', 'jp'].every(k => l[k] >= 3)) e = E.golden;
-    else if (wto && r.ECO >= 60) e = E.hide_shine;
-    else if (wto) e = E.burden;
-    else if (r.MIL >= 70 && l.us <= -5) e = E.iron_east;
-    else if (l.nk >= 5 && hasFlag('red_brother')) e = E.red_fortress;
+    let e, lineBonus = 0;
+    if (l.tw >= 8 && (r.MIL >= 60 || r.DIP >= 70 || wto)) { e = E.reunion; lineBonus = 90; }
+    else if (wto && RES_KEYS.every(k => r[k] >= 60) && ['us', 'uk', 'eu', 'jp'].every(k => l[k] >= 3)) { e = E.golden; lineBonus = 80; }
+    else if (wto && r.ECO >= 60) { e = E.hide_shine; lineBonus = 40; }
+    else if (wto) { e = E.burden; lineBonus = 15; }
+    else if (r.DIP >= 70 && l.sea >= 5 && hasFlag('un_seat')) { e = E.nonaligned; lineBonus = 55; }
+    else if (r.MIL >= 70 && l.us <= -5) { e = E.iron_east; lineBonus = r.ECO >= 50 ? 50 : 25; }
+    else if (l.nk >= 5 && hasFlag('red_brother')) { e = E.red_fortress; lineBonus = 40; }
     else e = E.drift;
 
     const addenda = [];
-    if (l.tw >= 8) addenda.push(E.addenda.strait);
+    if (l.tw >= 8 && e !== E.reunion) addenda.push(E.addenda.strait);
     if (hasFlag('bomb')) addenda.push(E.addenda.bomb);
     if (hasFlag('hk_return')) addenda.push(E.addenda.hk);
-    return Object.assign({}, e, { addenda, score: score() });
+    const total = score() + lineBonus;
+    const grade = (E.grades || []).find(g => total >= g.min);
+    return Object.assign({}, e, { addenda, score: total, grade });
   }
 
   function score() {
     let s = RES_KEYS.reduce((a, k) => a + state.res[k], 0);
     s += REL_KEYS.reduce((a, k) => a + Math.max(0, state.rel[k]) * 2, 0);
     s += state.flags.length * 3;
-    if (hasFlag('wto')) s += 60;
+    // 均衡治国加成：四资源全部≥50再奖，短板惩罚
+    const minRes = Math.min(...RES_KEYS.map(k => state.res[k]));
+    if (minRes >= 60) s += 80; else if (minRes >= 50) s += 40; else if (minRes < 25) s -= 40;
     return s;
   }
 
@@ -241,6 +273,11 @@
     state.turn++;
     state.playsLeft = 3;
     state.touched = {};
+    state.mulliganUsed = false;
+    if (state.res.STB >= 60) {
+      state.ap += 1;
+      log('【政通人和】稳定≥60，民力可用，行动点+1。');
+    }
     const drawn = [];
     while (state.hand.length < 6) {
       if (!state.deck.length) {
@@ -321,9 +358,28 @@
     state.playsLeft--;
   }
 
+  // 换牌：每回合一次，弃一张非危机手牌抽一张新牌，不占行动次数
+  function mulligan(cardId) {
+    const card = cardById(cardId);
+    if (!card || state.mulliganUsed || state.phase !== 'play' || card.type === 'crisis') return null;
+    state.mulliganUsed = true;
+    state.hand = state.hand.filter(id => id !== cardId);
+    state.discard.push(cardId);
+    let drawn = null;
+    if (!state.deck.length && state.discard.length) state.deck = shuffle(state.discard.splice(0));
+    if (state.deck.length) { drawn = state.deck.pop(); state.hand.push(drawn); }
+    log('【换牌】弃出「' + card.name + '」' + (drawn ? '，抽入新牌' : ''));
+    save();
+    return { discarded: card, drawn: drawn ? cardById(drawn) : null };
+  }
+
   function spendAP(action, target) {
     const a = AP_ACTIONS[action];
     if (!a || state.ap < a.cost) return null;
+    // 中美关系天花板：不扣点直接拒绝
+    if (action === 'diplo' && target === 'us' && state.rel.us >= usCap()) {
+      return { capped: true, cap: usCap(), deltas: [], ap: state.ap };
+    }
     state.ap -= a.cost;
     let fx;
     if (action === 'spy') {
@@ -587,6 +643,6 @@
     finaleChoices, resolveFinale, finalEnding,
     hasFlag, score, meets,
     agendaInfo, spyAvailable, reactionPhase,
-    trumpInfo, playTrump,
+    trumpInfo, playTrump, mulligan, usCap,
   };
 })();

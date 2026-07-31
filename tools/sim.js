@@ -73,7 +73,8 @@ function playTurn() {
     // 花AP：greedy 补最低资源
     while (st.ap >= 2 && !st.gameOver) {
       if (STRAT === 'wto') {
-        if (st.act >= 3 && st.rel.us < 4) E.spendAP('diplo', 'us');
+        const r = (st.act >= 3 && st.rel.us < 4 && st.rel.us < E.usCap()) ? E.spendAP('diplo', 'us') : null;
+        if (r && !r.capped) { /* 外交成功 */ }
         else if (st.res.ECO < 65) E.spendAP('eco');
         else {
           const min = E.RES_KEYS.reduce((a, k) => st.res[k] < st.res[a] ? k : a);
