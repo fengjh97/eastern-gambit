@@ -142,6 +142,64 @@
     return Object.assign({}, e, { addenda, score: total, grade });
   }
 
+  // 终局成就判定
+  function evalAchievements() {
+    const list = window.ACHIEVEMENTS || [];
+    return list.filter(a => {
+      const c = a.cond || {};
+      if (c.flags && !c.flags.every(f => hasFlag(f))) return false;
+      if (c.res) for (const k of Object.keys(c.res)) if (state.res[k] < c.res[k]) return false;
+      if (c.rel) for (const k of Object.keys(c.rel)) if (state.rel[k] < c.rel[k]) return false;
+      if (c.counter) {
+        const v = c.counter === 'trumpsPlayed' ? (state.trumpsPlayed || []).length : (state[c.counter] || 0);
+        if (v < c.n) return false;
+      }
+      if (c.survived && state.gameOver) return false;
+      return true;
+    });
+  }
+
+  // 标签图鉴：当前持有的旗标 + 它们在何处生效（动态扫描全部数据）
+  let flagUsesCache = null;
+  function flagUses() {
+    if (flagUsesCache) return flagUsesCache;
+    const uses = {};
+    const add = (f, txt) => { const arr = uses[f] = uses[f] || []; if (!arr.includes(txt)) arr.push(txt); };
+    for (let i = 1; i <= 5; i++) {
+      const d = window.ACT_DATA[i]; if (!d) continue;
+      d.cards.forEach(c => (c.requires || []).forEach(f => add(f, '解锁卡牌「' + c.name + '」')));
+      (d.turnZero || []).forEach(t => (t.mod || []).forEach(m => add(m.flag, '影响第' + i + '幕时局骰「' + t.name + '」' + (m.delta > 0 ? '（有利）' : '（不利）'))));
+      const walkReq = (o, label) => { if (!o) return;
+        (o.requires || []).forEach(f => add(f, label));
+        (o.any || []).forEach(x => walkReq(x, label));
+        (o.all || []).forEach(x => walkReq(x, label));
+      };
+      (d.finale && d.finale.choices || []).forEach(ch => walkReq(ch, '开启第' + i + '幕幕末选项「' + ch.label + '」'));
+    }
+    if (window.TRUMPS) Object.values(window.TRUMPS).forEach(t => {
+      const walk = o => { if (!o) return; (o.requires || []).forEach(f => add(f, '解锁王牌「' + t.name + '」')); (o.any || []).forEach(walk); (o.all || []).forEach(walk); };
+      walk(t.unlock);
+      (t.deadFlag || []).forEach(f => add(f, '使王牌「' + t.name + '」作废'));
+    });
+    if (window.REACTIONS) Object.values(window.REACTIONS.agendas || {}).forEach(actPool =>
+      Object.values(actPool).forEach(arr => arr.forEach(a => {
+        const walk = o => { if (!o) return; (o.requires || []).forEach(f => add(f, '破解议程「' + a.name + '」的条件之一')); (o.any || []).forEach(walk); (o.all || []).forEach(walk); };
+        walk(a.counter);
+      })));
+    // 引擎内部效果
+    add('yibiandao', '中苏决裂结算时创伤加重（一边倒的代价）');
+    add('korea_war', '影响苏联议程「火中取栗」结算');
+    add('wto', '决定入世系结局');
+    add('red_brother', '「最后的红色堡垒」结局条件');
+    add('bandung', '解锁王牌「第三世界牌」');
+    flagUsesCache = uses;
+    return uses;
+  }
+  function flagList() {
+    const uses = flagUses();
+    return state.flags.map(f => ({ flag: f, name: flagName(f), uses: uses[f] || ['历史印记（供结局与成就判定）'] }));
+  }
+
   function score() {
     let s = RES_KEYS.reduce((a, k) => a + state.res[k], 0);
     s += REL_KEYS.reduce((a, k) => a + Math.max(0, state.rel[k]) * 2, 0);
@@ -161,7 +219,7 @@
       flags: [], deck: [], discard: [], removed: [], hand: [],
       playsLeft: 0, ap: 0, log: [], gameOver: null, endingShown: false,
       touched: {}, thresholdUsed: {}, agendas: null, spyUsed: false,
-      trumpActUsed: 0, trumpHot: null,
+      trumpActUsed: 0, trumpHot: null, agendaFoiled: 0, trumpsPlayed: [],
     };
     buildDeck();
     drawAgendas();
@@ -228,6 +286,7 @@
     const gainDeltas = applyFx(def.gain.fx);
     const costDeltas = applyFx(def.cost.fx);
     state.trumpActUsed = state.act;
+    if (!state.trumpsPlayed.includes(id)) state.trumpsPlayed.push(id);
     state.trumpHot = { foe: def.foe, turns: 2, name: def.name };
     log('【王牌】打出「' + def.name + '·' + def.sub + '」！' + def.aftermath);
     save();
@@ -517,6 +576,7 @@
       const def = agendaDef(power);
       if (!def) continue;
       const ok = meets(def.counter).ok;
+      if (ok) state.agendaFoiled = (state.agendaFoiled || 0) + 1;
       const branch = ok ? def.foil : def.fail;
       const deltas = applyFx(branch.fx);
       out.push({ power, name: def.name, foiled: ok, text: branch.t, deltas, counterDesc: def.counterDesc });
@@ -644,5 +704,6 @@
     hasFlag, score, meets,
     agendaInfo, spyAvailable, reactionPhase,
     trumpInfo, playTrump, mulligan, usCap,
+    evalAchievements, flagList, flagName,
   };
 })();

@@ -846,3 +846,35 @@ body {
 .ending-grade { margin-bottom: 10px; font-size: 16px; letter-spacing: .15em; color: #d5c5a0; }
 .ending-grade b { font-family: 'Ma Shan Zheng', serif; font-size: 30px; color: var(--gold); letter-spacing: .2em; margin-left: 6px; }
 .ending-grade .eg-desc { font-size: 13px; color: #b8a888; letter-spacing: .05em; margin-top: 4px; }
+
+/* ==================== 标签图鉴 ==================== */
+.flag-item { margin: 8px 0; padding: 9px 13px; border: 1px solid #8a713d; border-left: 4px solid var(--gold); background: rgba(201,162,39,.07); }
+.fi-name { font-size: 15px; font-weight: 700; color: var(--red-deep); margin-bottom: 3px; }
+.fi-uses { font-size: 12.5px; color: var(--ink-soft); line-height: 1.7; }
+
+/* ==================== 国史勋卡 ==================== */
+.ach-head { text-align: center; color: var(--gold-soft); letter-spacing: .4em; text-indent: .4em; font-size: 15px; margin: 30px 0 14px; animation: riseIn 1s .8s ease both; }
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.ach-card {
+  cursor: pointer; background: linear-gradient(170deg, #f2e7cb, #dcc9a0);
+  border: 2px solid #6d5326; padding: 5px 5px 7px; text-align: center;
+  animation: achIn .6s cubic-bezier(.2,1.4,.4,1) both;
+  transition: transform .2s;
+}
+.ach-card:hover { transform: translateY(-4px) scale(1.05); z-index: 3; }
+@keyframes achIn { from { opacity: 0; transform: rotateY(90deg) scale(.6); } to { opacity: 1; transform: none; } }
+.ac-img { aspect-ratio: 3/4; background-size: cover; background-position: center; border: 1px solid #8a713d; filter: sepia(.15); }
+.ac-name { font-size: 13px; font-weight: 700; color: var(--red-deep); margin-top: 5px; line-height: 1.2; }
+.ac-cat { font-size: 10px; color: #8a713d; letter-spacing: .3em; text-indent: .3em; margin-top: 1px; }
+
+/* 小作文 */
+.essay { margin: 26px auto 0; max-width: 640px; padding: 18px 22px; background: rgba(233,221,194,.07);
+  border: 1px solid rgba(201,162,39,.3); text-align: justify; animation: riseIn 1s 1.4s ease both; }
+.essay-head { text-align: center; color: var(--gold); letter-spacing: .3em; font-size: 14px; margin-bottom: 12px; }
+.essay p { color: #d5c5a0; font-size: 15px; line-height: 2.1; margin: 0 0 10px; }
+.eg-stamp { width: 84px; height: 112px; margin: 0 auto 10px; background-size: cover; background-position: center;
+  border: 2px solid var(--gold); transform: rotate(-4deg); box-shadow: 0 6px 20px rgba(0,0,0,.5); }
+@media (max-width: 900px) {
+  .ach-grid { grid-template-columns: repeat(3, 1fr); }
+  #btn-flags { order: 5; }
+}

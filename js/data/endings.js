@@ -40,11 +40,11 @@ window.ENDINGS = {
     poem: '待到山花烂漫时，她在丛中笑。',
     text: '红旗从克里姆林宫落下之后，世界只剩下最后几面。你守住了阵营的残余：鸭绿江畔的盟友、旧同志的情谊、以及一整套不肯降下的旗帜。历史的车轮从旁边碾过，你站在原地——是丰碑，还是化石，由后人评说。' },
   reunion: {
-    id: 'reunion', title: '统一大业', kind: 'final', img: 'ending_golden',
+    id: 'reunion', title: '统一大业', kind: 'final', img: 'ach/ending_reunion',
     poem: '度尽劫波兄弟在，相逢一笑泯恩仇。',
     text: '当海峡两岸的航线连成日常，当对峙的炮位改成灯塔，这个世纪悬而未决的最后一道伤口开始愈合。五十二年的风雨换来的不止是国力——是让统一从口号变成时间表的定力与分量。历史会记住：这盘棋最难的一子，落成了。' },
   nonaligned: {
-    id: 'nonaligned', title: '不结盟旗手', kind: 'final', img: 'ending_hideshine',
+    id: 'nonaligned', title: '不结盟旗手', kind: 'final', img: 'ach/ending_nonaligned',
     poem: '青山遮不住，毕竟东流去。',
     text: '既不在华盛顿的体系里，也不在莫斯科的阴影下——你把第三条路走成了大道。从万隆到联合国讲台，亚非拉的目光汇聚在北京：这里是不结盟世界的旗手，穷国的代言人，另一种秩序的可能。超级大国的地图上没有你的阵营，因为你自己就是一极。' },
   drift: {
@@ -54,10 +54,10 @@ window.ENDINGS = {
 
   // ---- 史册定评（按总分四档） ----
   grades: [
-    { min: 650, title: '盛世伟业', desc: '内圣外王，文治武功俱臻极盛——史官落笔，找不到贬语。' },
-    { min: 500, title: '中兴气象', desc: '筚路蓝缕而终成大器，功大于过，青史留名。' },
-    { min: 350, title: '守成之局', desc: '风雨飘摇中守住了基本盘，功过参半，留待后人评说。' },
-    { min: 0, title: '艰难时世', desc: '内外交困，步步维艰——这段历史读来，令人扼腕。' },
+    { min: 650, img: 'ach/grade_s', title: '盛世伟业', desc: '内圣外王，文治武功俱臻极盛——史官落笔，找不到贬语。' },
+    { min: 500, img: 'ach/grade_a', title: '中兴气象', desc: '筚路蓝缕而终成大器，功大于过，青史留名。' },
+    { min: 350, img: 'ach/grade_b', title: '守成之局', desc: '风雨飘摇中守住了基本盘，功过参半，留待后人评说。' },
+    { min: 0, img: 'ach/grade_c', title: '艰难时世', desc: '内外交困，步步维艰——这段历史读来，令人扼腕。' },
   ],
 
   // ---- 附记（可叠加） ----

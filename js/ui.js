@@ -435,7 +435,7 @@
       let chip;
       if (d.type === 'res') chip = el('span', 'delta-chip ' + (d.delta >= 0 ? 'up' : 'down'), d.name + ' ' + (d.delta > 0 ? '+' : '') + d.delta);
       else if (d.type === 'rel') chip = el('span', 'delta-chip ' + (d.delta >= 0 ? 'up' : 'down'), d.name + ' ' + (d.delta > 0 ? '+' : '') + d.delta);
-      else if (d.type === 'flag') chip = el('span', 'delta-chip flag', '☭ ' + d.name);
+      else if (d.type === 'flag') chip = el('span', 'delta-chip flag', '☭ ' + Engine.flagName(d.name));
       else if (d.type === 'ap') chip = el('span', 'delta-chip flag', '行动点 +' + d.delta);
       if (chip) { chip.style.animationDelay = (i * .1) + 's'; row.append(chip); }
       if (d.type === 'res' || d.type === 'rel') flashPanel(d);
@@ -548,6 +548,26 @@
     wrap.append(el('div', 'd-desc', '<span style="font-size:13px;color:var(--ink-soft)">幕末将按当时的状态判定。破解则对方偷鸡不成蚀把米，未破解则议程得逞。</span>'));
     const ok = el('button', 'btn', '收 起'); ok.style.marginTop = '14px';
     ok.onclick = openApPanel;
+    wrap.append(ok);
+    openModal(wrap);
+  }
+
+  // ---------- 标签图鉴 ----------
+  function openFlagsPanel() {
+    const list = Engine.flagList();
+    const wrap = el('div');
+    wrap.append(el('div', 'd-kicker', '历史印记 · 已持有 ' + list.length + ' 枚标签'));
+    wrap.append(el('h2', null, '国运档案'));
+    wrap.append(el('div', 'd-desc', '打出事件获得的标签会解锁后续卡牌、幕末选项、王牌，并影响时局骰与两强议程——这里能查到每枚标签的全部效用。'));
+    if (!list.length) wrap.append(el('div', 'd-desc', '尚无标签。打出带 ☭ 标记效果的事件卡即可获得。'));
+    list.forEach(f => {
+      const box = el('div', 'flag-item');
+      box.innerHTML = '<div class="fi-name">☭ ' + f.name + '</div>' +
+        '<div class="fi-uses">' + f.uses.map(u => '· ' + u).join('<br>') + '</div>';
+      wrap.append(box);
+    });
+    const ok = el('button', 'btn ghost', '收 起'); ok.style.marginTop = '14px';
+    ok.onclick = closeModal;
     wrap.append(ok);
     openModal(wrap);
   }
@@ -859,6 +879,31 @@
     $('#ending-poem').textContent = e.poem;
     $('#ending-text').textContent = e.text;
     Audio2.play(e.kind === 'collapse' ? 'fail' : 'gong');
+    // 成就卡墙
+    const achBox = $('#ending-ach'); achBox.innerHTML = '';
+    const earned = Engine.evalAchievements();
+    if (earned.length) {
+      achBox.append(el('div', 'ach-head', '国 史 勋 卡 · ' + earned.length + ' 枚'));
+      const grid = el('div', 'ach-grid');
+      earned.forEach((a, i) => {
+        const c = el('div', 'ach-card');
+        c.style.animationDelay = (0.9 + i * 0.13) + 's';
+        c.innerHTML = '<div class="ac-img"></div><div class="ac-name">' + a.name + '</div><div class="ac-cat">' + (window.ACH_CATS[a.cat] || '') + '</div>';
+        bgOrGradient(c.querySelector('.ac-img'), a.img);
+        c.onclick = () => toast(a.name + '：' + a.t, 3600);
+        grid.append(c);
+      });
+      achBox.append(grid);
+    }
+    // 建国小作文
+    const essayBox = $('#ending-essay'); essayBox.innerHTML = '';
+    if (window.buildEssay) {
+      const paras = window.buildEssay(earned, st, e);
+      const eb = el('div', 'essay');
+      eb.append(el('div', 'essay-head', '—— 国 之 定 论 ——'));
+      paras.forEach(t => eb.append(el('p', null, t)));
+      essayBox.append(eb);
+    }
     const addBox = $('#ending-addenda'); addBox.innerHTML = '';
     (e.addenda || []).forEach(a => addBox.append(el('div', 'addendum', '<b>【' + a.title + '】</b> ' + a.text)));
     // 统计
@@ -870,7 +915,8 @@
     stats.append(yr);
     const sc = $('#ending-score');
     const score = e.score != null ? e.score : Engine.score();
-    sc.innerHTML = (e.grade ? '<div class="ending-grade">史册定评 · <b>' + e.grade.title + '</b><div class="eg-desc">' + e.grade.desc + '</div></div>' : '') + '史册评分 <b>0</b>';
+    sc.innerHTML = (e.grade ? '<div class="ending-grade"><div class="eg-stamp" id="eg-stamp"></div>史册定评 · <b>' + e.grade.title + '</b><div class="eg-desc">' + e.grade.desc + '</div></div>' : '') + '史册评分 <b>0</b>';
+    if (e.grade && e.grade.img) bgOrGradient($('#eg-stamp'), e.grade.img);
     let cur = 0; const step = Math.max(1, Math.round(score / 60));
     const tm = setInterval(() => { cur = Math.min(score, cur + step); sc.querySelector('b').textContent = cur; if (cur >= score) clearInterval(tm); }, 24);
     Engine.clearSave();
@@ -890,6 +936,7 @@
     $('#btn-end-turn').onclick = endTurn;
     $('#btn-ap').onclick = openApPanel;
     $('#btn-trump').onclick = openTrumpPanel;
+    $('#btn-flags').onclick = openFlagsPanel;
     $('#btn-restart-ending').onclick = () => curtain(() => { Engine.newGame(); renderActIntro(); });
     $('#btn-menu-ending').onclick = () => curtain(renderTitle);
     $('#mute-btn').onclick = () => { const on = Audio2.toggle(); Music.setEnabled(on); $('#mute-btn').textContent = on ? '♪' : '✕'; };

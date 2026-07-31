@@ -1,5 +1,5 @@
 // 入口
-const APP_VERSION = '9';
+const APP_VERSION = '10';
 // 自动更新：检测到新版本时用带参地址绕过HTML缓存强制刷新
 (function checkUpdate() {
   fetch('version.txt?_=' + Date.now(), { cache: 'no-store' })
@@ -35,6 +35,14 @@ window.addEventListener('DOMContentLoaded', () => {
     Engine.newGame();
     UI._debugActIntro();
     setTimeout(() => { const b = [...document.querySelectorAll('#tz-area .btn')].find(x => x.textContent.includes('掷')); b && b.click(); }, 2500);
+    return;
+  }
+  if (h === '#autoflags') {
+    Engine.newGame();
+    while (Engine.state.phase === 'turnzero') Engine.rollTurnZero();
+    Engine.state.flags.push('korea_war', 'qian', 'bandung', 'hk_window');
+    UI._debugEnterBoard();
+    setTimeout(() => document.querySelector('#btn-flags').click(), 600);
     return;
   }
   if (h === '#automap') {
@@ -97,7 +105,8 @@ window.addEventListener('DOMContentLoaded', () => {
     Engine.newGame();
     Engine.state.phase = 'ending';
     Engine.state.res = { STB: 66, ECO: 78, MIL: 62, DIP: 70 };
-    Engine.state.flags.push('wto', 'bomb', 'hk_return');
+    Engine.state.flags.push('wto', 'bomb', 'hk_return', 'korea_war', 'satellite', 'un_seat', 'pingpong', 'nixon_ok', 'reform', 'sez', 'south_tour', 'us_normal', 'jp_normal', 'bandung');
+    Engine.state.agendaFoiled = 5; Engine.state.trumpsPlayed = ['sov', 'us'];
     Engine.state._finalEnding = Engine.finalEnding();
     UI._debugEnding();
     return;
