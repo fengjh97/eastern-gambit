@@ -31,6 +31,7 @@
 
 纯静态站（无构建、无依赖）：原生 JS + CSS 动画，WebAudio 合成音效，localStorage 存档。
 美术素材由 Nano Banana Pro（Gemini 3 Pro Image）生成：宣传画风海报 + 做旧历史照片。
+背景音乐为自由授权的真实录音（东方红一号卫星信号、1963年《东方红》、1977年《国际歌》器乐版等，详见 [授权页](credits.html)），加载失败时回落到 WebAudio 合成版。
 
 本地运行：`python3 -m http.server` 后打开 `http://localhost:8000`，或直接双击 `index.html`。
 

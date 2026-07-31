@@ -4,6 +4,52 @@
   let ctx = null, enabled = true, current = null, timer = null;
   let master = null, filt = null;
 
+  // ---------- 真实音源层（m4a，iOS兼容），失败自动回落合成器 ----------
+  const FILES = {
+    title: 'assets/audio/title.m4a', ending: 'assets/audio/title.m4a',
+    1: 'assets/audio/act1.m4a', 2: 'assets/audio/act2.m4a', 3: 'assets/audio/act3.m4a',
+    4: 'assets/audio/act4.m4a', 5: 'assets/audio/act5.m4a',
+  };
+  const VOL = 0.4;
+  let deckA = null, deckB = null, liveDeck = null, fileBroken = {};
+
+  function makeAudio(src) {
+    const a = new Audio(src);
+    a.loop = true; a.preload = 'auto'; a.volume = 0;
+    return a;
+  }
+  function fadeTo(a, target, ms, thenPause) {
+    if (!a) return;
+    const start = a.volume, steps = 20, dt = ms / steps;
+    let i = 0;
+    clearInterval(a._fade);
+    a._fade = setInterval(() => {
+      i++;
+      a.volume = Math.max(0, Math.min(1, start + (target - start) * i / steps));
+      if (i >= steps) { clearInterval(a._fade); if (thenPause && target === 0) a.pause(); }
+    }, dt);
+  }
+  function playFile(key) {
+    const src = FILES[key];
+    if (!src || fileBroken[key]) return false;
+    const old = liveDeck;
+    const next = makeAudio(src);
+    next._key = key;
+    const p = next.play();
+    if (p && p.catch) p.catch(() => {
+      // 自动播放被拦或文件缺失：标记待重试（手势后 setEnabled 会重进）
+      if (next.error || (next.networkState === 3)) { fileBroken[key] = true; play(key); }
+    });
+    next.onerror = () => { fileBroken[key] = true; if (liveDeck === next) { liveDeck = null; play(key); } };
+    fadeTo(next, VOL, 1600);
+    if (old) fadeTo(old, 0, 1400, true);
+    liveDeck = next;
+    return true;
+  }
+  function stopFile() {
+    if (liveDeck) { fadeTo(liveDeck, 0, 700, true); liveDeck = null; }
+  }
+
   function ac() {
     if (!ctx) {
       try {
@@ -69,13 +115,22 @@
 
   function stop() {
     if (timer) { clearInterval(timer); timer = null; }
-    current = null;
+  }
+  function stopAll() {
+    stop(); stopFile(); current = null;
   }
 
   function play(key) {
     if (!enabled) { current = { key }; return; } // 记住待播曲目
+    if (current && current.key === key && (timer || (liveDeck && liveDeck._key === key && !liveDeck.paused))) return;
+    // 优先真实音源
+    if (!fileBroken[key] && FILES[key]) {
+      stop();               // 停合成器
+      current = { key };
+      if (playFile(key)) return;
+    }
     if (!ac()) return;
-    if (current && current.key === key && timer) return;
+    stopFile();
     stop();
     const tr = TRACKS[key]; if (!tr) return;
     const beat = 60 / tr.bpm;
@@ -109,11 +164,18 @@
   window.Music = {
     playTitle: () => play('title'),
     playAct: n => play(n),
-    stop,
+    stop: stopAll,
     setEnabled: on => {
       enabled = on;
-      if (!on) { const k = current && current.key; stop(); current = { key: k }; }
-      else if (current && current.key != null) { const k = current.key; current = null; play(k); }
+      if (!on) {
+        const k = current && current.key;
+        stop(); if (liveDeck) { liveDeck.pause(); }
+        current = { key: k };
+      } else if (current && current.key != null) {
+        const k = current.key; current = null;
+        if (liveDeck && liveDeck._key === k) { liveDeck.play().catch(() => {}); fadeTo(liveDeck, 0.4, 800); current = { key: k }; }
+        else play(k);
+      }
     },
     get enabled() { return enabled; },
   };
