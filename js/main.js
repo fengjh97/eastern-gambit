@@ -1,4 +1,19 @@
 // 入口
+const APP_VERSION = '8';
+// 自动更新：检测到新版本时用带参地址绕过HTML缓存强制刷新
+(function checkUpdate() {
+  fetch('version.txt?_=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.text() : null)
+    .then(v => {
+      if (!v) return;
+      v = v.trim();
+      const cur = new URLSearchParams(location.search).get('u');
+      if (v !== APP_VERSION && cur !== v) {
+        location.replace(location.pathname + '?u=' + v + location.hash);
+      }
+    }).catch(() => { });
+})();
+
 window.addEventListener('DOMContentLoaded', () => {
   UI.bind();
   const h = location.hash;
