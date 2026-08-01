@@ -905,6 +905,8 @@
       essayBox.append(eb);
     }
     const addBox = $('#ending-addenda'); addBox.innerHTML = '';
+    (e.gaps || []).forEach(g => addBox.append(el('div', 'addendum gap',
+      '<b>【憾失 · ' + g.title + '】</b> 差一步：' + g.misses.join('；') + '。')));
     (e.addenda || []).forEach(a => addBox.append(el('div', 'addendum', '<b>【' + a.title + '】</b> ' + a.text)));
     // 统计
     const stats = $('#ending-stats'); stats.innerHTML = '';

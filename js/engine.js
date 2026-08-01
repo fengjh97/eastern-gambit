@@ -123,9 +123,10 @@
     const E = window.ENDINGS;
     const r = state.res, l = state.rel;
     const wto = hasFlag('wto');
+    const westOk = ['us', 'uk', 'eu', 'jp'].filter(k => l[k] >= 3).length;
     let e, lineBonus = 0;
     if (l.tw >= 8 && (r.MIL >= 60 || r.DIP >= 70 || wto)) { e = E.reunion; lineBonus = 90; }
-    else if (wto && RES_KEYS.every(k => r[k] >= 60) && ['us', 'uk', 'eu', 'jp'].every(k => l[k] >= 3)) { e = E.golden; lineBonus = 80; }
+    else if (wto && RES_KEYS.every(k => r[k] >= 60) && westOk >= 3) { e = E.golden; lineBonus = 80; }
     else if (wto && r.ECO >= 60) { e = E.hide_shine; lineBonus = 40; }
     else if (wto) { e = E.burden; lineBonus = 15; }
     else if (r.DIP >= 70 && l.sea >= 5 && hasFlag('un_seat')) { e = E.nonaligned; lineBonus = 55; }
@@ -139,7 +140,31 @@
     if (hasFlag('hk_return')) addenda.push(E.addenda.hk);
     const total = score() + lineBonus;
     const grade = (E.grades || []).find(g => total >= g.min);
-    return Object.assign({}, e, { addenda, score: total, grade });
+
+    // 憾失更高结局：告诉玩家差在哪
+    const relN = relNames();
+    const fmtRel = k => relN[k] + '关系≥+3（当前' + (l[k] > 0 ? '+' : '') + l[k] + '）';
+    const lines = [
+      { id: 'reunion', title: E.reunion.title, check: () => {
+          const m = [];
+          if (l.tw < 8) m.push('台湾关系≥+8（当前' + (l.tw > 0 ? '+' : '') + l.tw + '）');
+          if (!(r.MIL >= 60 || r.DIP >= 70 || wto)) m.push('军事≥60 或 国际地位≥70 或 入世');
+          return m; } },
+      { id: 'golden', title: E.golden.title, check: () => {
+          const m = [];
+          if (!wto) m.push('达成入世');
+          RES_KEYS.forEach(k => { if (r[k] < 60) m.push(RES_NAMES[k] + '≥60（当前' + r[k] + '）'); });
+          if (westOk < 3) m.push('美/英/欧/日中至少三国关系≥+3（当前' + westOk + '国：' +
+            ['us', 'uk', 'eu', 'jp'].filter(k => l[k] < 3).map(fmtRel).join('、') + '）');
+          return m; } },
+    ];
+    const gaps = [];
+    for (const ln of lines) {
+      if (ln.id === e.id) break;
+      const m = ln.check();
+      if (m.length && m.length <= 3) gaps.push({ title: ln.title, misses: m });
+    }
+    return Object.assign({}, e, { addenda, score: total, grade, gaps });
   }
 
   // 终局成就判定

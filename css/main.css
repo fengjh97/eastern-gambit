@@ -878,3 +878,5 @@ body {
   .ach-grid { grid-template-columns: repeat(3, 1fr); }
   #btn-flags { order: 5; }
 }
+.addendum.gap { border-color: rgba(163,31,36,.5); background: rgba(163,31,36,.08); }
+.addendum.gap b { color: #ff9c8f; }
